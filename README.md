@@ -6,4 +6,5 @@ Thành viên:
 - Lê Thu Trà - 19020118
 
 Tuần 2: Run Hello World
+
 ![image](https://user-images.githubusercontent.com/78216372/190573370-f8b390c0-5013-4b16-b7e7-d2f7a86b82cd.png)
