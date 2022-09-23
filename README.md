@@ -8,3 +8,8 @@ Thành viên:
 Tuần 2: Run Hello World
 
 ![image](https://user-images.githubusercontent.com/78216372/190573370-f8b390c0-5013-4b16-b7e7-d2f7a86b82cd.png)
+
+Tuần 3: Giao diện cơ bản
+
+
+![Nhom12](https://user-images.githubusercontent.com/78216372/191904596-75c44d6d-4155-4873-8989-51a773f8f72c.gif)
