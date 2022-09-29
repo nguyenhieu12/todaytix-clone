@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/screen/Login.dart';
 import 'package:flutter_project/screen/Onboarding.dart';
+import 'package:flutter_project/screen/Location.dart';
+import 'package:flutter_project/screen/Watchlist.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen()
+      home: Watchlist()
     );
   }
 }

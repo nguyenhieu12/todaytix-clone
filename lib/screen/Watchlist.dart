@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'location.dart';
+import 'Location.dart';
 
 class Watchlist extends StatefulWidget {
   Watchlist({super.key});
