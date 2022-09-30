@@ -18,4 +18,5 @@ Tuần 3: Giao diện cơ bản
 Tuần 4: Giao diện 
 
 
-![todaytix_official – homePage dart 2022-09-30 14-06-19](https://user-images.githubusercontent.com/91106338/193212808-f853dfa5-1714-4c97-8b53-df6b39b8edd8.gif)
+![login](https://user-images.githubusercontent.com/78216372/193215860-9f0a7ffe-939d-4189-8f2f-4e50c18729e6.png)
+![signup](https://user-images.githubusercontent.com/78216372/193215876-c22ec693-90a9-44b4-bb77-4476b46944b4.png)
