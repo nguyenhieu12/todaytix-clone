@@ -61,13 +61,13 @@ class _MyHomePageState extends State<MyHomePage> {
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.home, color: Colors.red),
+                icon: Icon(Icons.home, color: Colors.red),
                 label: ''),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.search, color: Colors.grey),
+                icon: Icon(Icons.search, color: Colors.grey),
                 label: ''),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.person, color: Colors.grey),
+                icon: Icon(Icons.person, color: Colors.grey),
                 label: ''),
           ],
           iconSize: 27,
@@ -85,13 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home,),
+              icon: Icon(Icons.home,),
               label: ''),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.search,),
+              icon: Icon(Icons.search,),
               label: ''),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.person,),
+              icon: Icon(Icons.person,),
               label: ''),
         ],
         iconSize: 27,

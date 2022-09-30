@@ -88,8 +88,6 @@ class HomePage extends StatelessWidget {
               height: 20,
             ),
             CardItem(image: 'assets/1.jpg', context: context),
-            CardItem(image: 'assets/2.jpg', context: context),
-            CardItem(image: 'assets/3.jpg', context: context),
           ],
         ),
       ),
