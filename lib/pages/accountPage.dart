@@ -21,14 +21,14 @@ class AccountPage extends StatelessWidget {
                           leading: Icon(Icons.person_add),
                           title: Text('Sign up'),
                           onTap: () {
-                            SignupScreen();
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
                           },
                         ),
                         ListTile(
                           leading: Icon(Icons.person_add_alt),
                           title: Text('Login'),
                           onTap: () {
-                            LoginScreen();
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                           },
                         ),
                         ListTile(
