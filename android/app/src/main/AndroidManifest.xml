@@ -1,7 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="com.example.todaytix_official">
    <application
         android:label="todaytix_official"
+=======
+    package="com.example.flutter_project">
+   <application
+        android:label="flutter_project"
+>>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

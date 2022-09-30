@@ -294,7 +294,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.todaytixOfficial;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.flutterProject;
+>>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -422,7 +426,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.todaytixOfficial;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.flutterProject;
+>>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -444,7 +452,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.todaytixOfficial;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.flutterProject;
+>>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
