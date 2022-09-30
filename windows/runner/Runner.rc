@@ -90,12 +90,21 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
+<<<<<<< HEAD
+            VALUE "FileDescription", "todaytix_official" "\0"
+            VALUE "FileVersion", VERSION_AS_STRING "\0"
+            VALUE "InternalName", "todaytix_official" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "todaytix_official.exe" "\0"
+            VALUE "ProductName", "todaytix_official" "\0"
+=======
             VALUE "FileDescription", "flutter_project" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "flutter_project" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "flutter_project.exe" "\0"
             VALUE "ProductName", "flutter_project" "\0"
+>>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

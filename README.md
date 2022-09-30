@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+# todaytix_official
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+=======
 Nhóm 12 - Phát triển ứng dụng di động (INT3020 40)
 
 Thành viên: 
@@ -13,3 +31,4 @@ Tuần 3: Giao diện cơ bản
 
 
 ![Nhom12](https://user-images.githubusercontent.com/78216372/191904596-75c44d6d-4155-4873-8989-51a773f8f72c.gif)
+>>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58

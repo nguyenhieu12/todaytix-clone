@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
+    package="com.example.todaytix_official">
+=======
     package="com.example.flutter_project">
+>>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
     <!-- The INTERNET permission is required for development. Specifically,
          the Flutter tool needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
