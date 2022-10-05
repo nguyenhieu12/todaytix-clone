@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LocationPage extends StatelessWidget {
-  LocationPage({super.key});
+  const LocationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class LocationPage extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(102, 98, 161, 100), Colors.black])),
+                colors: [Color.fromRGBO(102, 98, 161, 100), Colors.black],),),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
@@ -31,17 +31,17 @@ class LocationPage extends StatelessWidget {
               title: const Text(
                 'Select Location',
                 style: TextStyle(color: Colors.white),
-              )),
+              ),),
           body: Center(
             child: LocationList(update: () {  },),
           ),
-        ));
+        ),);
   }
 }
 
 class LocationList extends StatefulWidget {
   final Function() update;
-  LocationList({super.key, required this.update});
+  const LocationList({super.key, required this.update});
 
   @override
   State<LocationList> createState() => ListState(choice: '');
@@ -74,24 +74,24 @@ class ListState extends State<LocationList> {
   Widget build(BuildContext context) {
     return ListView.separated(
       separatorBuilder: (BuildContext context, int index) {
-        return SizedBox(height: 5);
+        return const SizedBox(height: 5);
       },
       itemCount: 15,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           title: Center(
               child: Text(
             areas[index],
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          )),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
+          ),),
           onTap: () {
             setState(() => choice == areas[index]);
             widget.update();
             Navigator.pop(
               context,
             );
-          }
+          },
         );
       },
     );
