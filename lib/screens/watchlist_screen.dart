@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'Location.dart';
+import 'location_screen.dart';
 
 class Watchlist extends StatefulWidget {
-  Watchlist({super.key});
+  const Watchlist({super.key});
 
   @override
   State<Watchlist> createState() => LocaleState();
@@ -11,16 +11,16 @@ class Watchlist extends StatefulWidget {
 }
 
 class LocaleState extends State<Watchlist> {
-  LocaleState({key});
+  LocaleState();
 
   Route route() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => LocationPage(),
+      pageBuilder: (context, animation, secondaryAnimation) => const LocationPage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
         const curve = Curves.ease;
-        var tween =
+        final tween =
         Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
@@ -36,13 +36,13 @@ class LocaleState extends State<Watchlist> {
       setState(() {});
     }
     LocationList(update: refresh);
-    String locale = ListState(choice: '').choice;
+    final String locale = ListState(choice: '').choice;
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color.fromRGBO(102, 98, 161, 100), Colors.black])),
+              colors: [Color.fromRGBO(102, 98, 161, 100), Colors.black],),),
       child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
@@ -54,7 +54,7 @@ class LocaleState extends State<Watchlist> {
                   color: Colors.white,
                 ),
                 label: Text(locale,
-                    style: const TextStyle(color: Colors.white, fontSize: 14)),
+                    style: const TextStyle(color: Colors.white, fontSize: 14),),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -77,15 +77,15 @@ class LocaleState extends State<Watchlist> {
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Black_colour.jpg/1200px-Black_colour.jpg'),
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Black_colour.jpg/1200px-Black_colour.jpg',),
                           fit: BoxFit.fill,
                         ),
                         borderRadius: BorderRadius.all(
                           Radius.circular(30.0),
                         ),
                       ),
-                    ));
-              }))),
+                    ),);
+              }),),),
     );
   }
 

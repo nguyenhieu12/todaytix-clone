@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'pages/homePage.dart';
-import 'pages/searchPage.dart';
-import 'pages/accountPage.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'screens/bottom_nav_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,152 +10,21 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        scaffoldBackgroundColor: const Color(0xFF0C0303),
         primarySwatch: Colors.blue,
+        splashColor: Colors.transparent,
+        primaryColor: Colors.redAccent,
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const BottomNavBar(),
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  int selectIndex = 0;
-  bool flag = true;
-
-  void navigateBottomBar(int index) {
-    setState(() {
-      selectIndex = index;
-    });
-  }
-
-  final List<Widget> pages = [
-    HomePage(),
-    SearchPage(),
-    AccountPage(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    if (selectIndex == 0 && flag == true) {
-      return Scaffold(
-        body: pages[selectIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.black,
-          currentIndex: selectIndex,
-          onTap: navigateBottomBar,
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.red),
-                label: ''),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.search, color: Colors.grey),
-                label: ''),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Colors.grey),
-                label: ''),
-          ],
-          iconSize: 27,
-        ),
-      );
-    }
-    return Scaffold(
-      body: pages[selectIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        currentIndex: selectIndex,
-        onTap: navigateBottomBar,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home,),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search,),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person,),
-              label: ''),
-        ],
-        iconSize: 27,
-      ),
-    );
-  }
-}
-
-/*Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconButton(
-            onPressed: () {
-              Image.asset(
-                'lib/icons/home_filled.png',
-                color: Colors.red,
-              );
-              SearchPage();
-            },
-            icon: Container(
-              height: 40,
-              child: Image.asset(
-                'lib/icons/home.png',
-                color: Colors.red,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 40,
-          ),
-          IconButton(
-            onPressed: () {
-              Image.asset(
-                'lib/icons/search.png',
-                color: Colors.red,
-              );
-              SearchPage();
-            },
-            icon: Container(
-              height: 40,
-              child: Image.asset(
-                'lib/icons/search.png',
-                color: Colors.grey,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 40,
-          ),
-          IconButton(
-            onPressed: () {
-              Image.asset(
-                'lib/icons/user.png',
-                color: Colors.red,
-              );
-              AccountPage();
-            },
-            icon: Container(
-              height: 40,
-              child: Image.asset(
-                'lib/icons/user.png',
-                color: Colors.grey,
-              ),
-            ),
-          )
-        ],
-      )*/
-

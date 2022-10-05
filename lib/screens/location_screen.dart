@@ -10,7 +10,7 @@ class LocationPage extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(102, 98, 161, 100), Colors.black],),),
+                colors: [Color.fromRGBO(102, 98, 161, 100), Colors.black])),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
@@ -31,11 +31,11 @@ class LocationPage extends StatelessWidget {
               title: const Text(
                 'Select Location',
                 style: TextStyle(color: Colors.white),
-              ),),
+              )),
           body: Center(
             child: LocationList(update: () {  },),
           ),
-        ),);
+        ));
   }
 }
 
@@ -84,14 +84,14 @@ class ListState extends State<LocationList> {
               child: Text(
             areas[index],
             style: const TextStyle(color: Colors.white, fontSize: 18),
-          ),),
+          )),
           onTap: () {
             setState(() => choice == areas[index]);
             widget.update();
             Navigator.pop(
               context,
             );
-          },
+          }
         );
       },
     );
