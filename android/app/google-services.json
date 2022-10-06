@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "80668215372",
+    "project_id": "flutterproject-6b61f",
+    "storage_bucket": "flutterproject-6b61f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80668215372:android:d77cf39087074a02858ce9",
+        "android_client_info": {
+          "package_name": "com.example.flutter_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80668215372-50j6e3e4r89jbjlct629mdi14p25p0hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmhgZMaiYduaYUJEOPy7L_PDBoBC5bF7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80668215372-50j6e3e4r89jbjlct629mdi14p25p0hj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "80668215372-igpffllhso3d90fst2lm6jpa7de4df2k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.todaytixOfficial"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

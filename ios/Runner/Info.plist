@@ -5,11 +5,8 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-<<<<<<< HEAD
 	<string>Todaytix Official</string>
-=======
 	<string>Flutter Project</string>
->>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,11 +14,8 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-<<<<<<< HEAD
 	<string>todaytix_official</string>
-=======
 	<string>flutter_project</string>
->>>>>>> d0b7eb98a8475557d96347aa9167a7fb6d30ef58
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
