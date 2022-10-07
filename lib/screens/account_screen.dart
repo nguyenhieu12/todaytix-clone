@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/screens/login_screen.dart';
+import 'package:flutter_project/screens/signup_screen.dart';
 import '../screens/watchlist_screen.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -13,13 +15,13 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      //padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
             color: Colors.white,
-            padding: const EdgeInsets.fromLTRB(0,0,0,0),
+            //padding: const EdgeInsets.fromLTRB(0,0,0,0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -27,14 +29,16 @@ class _AccountScreenState extends State<AccountScreen> {
                   leading: const Icon(Icons.person_add),
                   title: const Text('Sign up'),
                   onTap: () {
-                    BottomSheetLoginSignup();
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                    BottomSheetLoginSignup(SignupScreen());
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.person_add_alt),
                   title: const Text('Login'),
                   onTap: () {
-                    BottomSheetLoginSignup();
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    BottomSheetLoginSignup(LoginScreen());
                   },
                 ),
                 ListTile(
@@ -52,67 +56,35 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  void BottomSheetLoginSignup() {
-    showModalBottomSheet(
+  void BottomSheetLoginSignup(Widget widget) {
+    showBottomSheet(
       context: context,
       builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
+        height: 665,
+        //padding: const EdgeInsets.all(5),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
             )
         ),
-        child: Column(
+        child: Stack(
           children: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(CupertinoIcons.clear)
-                )
-              ],
-            ),
+            widget,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 30, 0, 0),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CupertinoIcons.clear),
+                color: Colors.white,
+              ),
+            )
           ],
-        ),
-      ),
-      backgroundColor: Colors.transparent,
+        )
+      )
     );
   }
 }
-/**/
-/*return Container(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-      color: Colors.blue,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            color: Colors.white,
-            padding: const EdgeInsets.fromLTRB(0,0,0,0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.person_add),
-                  title: Text('Sign up'),
-                  onTap: () {
-                    BottomSheetLoginSignup();
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.person_add_alt),
-                  title: Text('Login'),
-                  onTap: () {
-                    BottomSheetLoginSignup();
-                  },
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );*/
