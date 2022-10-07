@@ -20,3 +20,8 @@ Tuần 4: Giao diện
 ![ui](https://user-images.githubusercontent.com/91106338/193216339-ca1df411-b1e2-48fb-9c6a-b173dcc70a07.gif)
 ![login](https://user-images.githubusercontent.com/78216372/193215860-9f0a7ffe-939d-4189-8f2f-4e50c18729e6.png)
 ![signup](https://user-images.githubusercontent.com/78216372/193215876-c22ec693-90a9-44b4-bb77-4476b46944b4.png)
+
+Tuần 5: Hoàn thiện các giao diện, kết nối firebase
+
+
+![flutter_project-–-search_screen dart-_flutter_project_-2022-10-07-13-18-08](https://user-images.githubusercontent.com/78216372/194483031-b0650fba-54dc-4b33-a2de-4c66f21df3ec.gif)
