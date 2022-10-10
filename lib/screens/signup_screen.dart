@@ -43,56 +43,20 @@ class _SignupScreenState extends State<SignupScreen> {
                     )
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.only(top: 75),
                   child: Center(
                       child: Column(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.55,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Color.fromARGB(100, 90, 34, 34)
-                            ),
                             child: Padding(
                               padding: EdgeInsets.only(left: 15),
                               child: Row(
-                                children: [
-                                  OutlinedButton(
-                                    onPressed: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => const LoginScreen()));
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                      shape: StadiumBorder(),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                    child: const Text('Log in',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white
-                                        )
-                                    ),
-                                  ),
-                                  SizedBox(width: 25),
-                                  TextButton(
-                                    onPressed: () {},
-                                    style: OutlinedButton.styleFrom(
-                                      shape: StadiumBorder(),
-                                      backgroundColor: Colors.white,
-                                    ),
-                                    child: const Text('Sign up',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black
-                                        )
-                                    ),
-                                  )
+                                children: const [
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           const Text('Join',
                               style: TextStyle(
                                 fontSize: 50,
@@ -122,12 +86,12 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: OutlinedButton(
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      backgroundColor: Color.fromARGB(100, 192, 192, 192),
+                      shape: const StadiumBorder(),
+                      backgroundColor: const Color.fromARGB(100, 192, 192, 192),
                     ),
                     child: Row(
                       children: [
@@ -136,11 +100,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           width: 28,
                           height: 28,
                         ),
-                        SizedBox(width: 45),
+                        const SizedBox(width: 45),
                         const Text(
                           'Continue with Google',
                           style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 18,
                               color: Colors.black
                           ),
                         )
@@ -149,12 +113,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: OutlinedButton(
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      backgroundColor: Color.fromARGB(100, 192, 192, 192),
+                      shape: const StadiumBorder(),
+                      backgroundColor: const Color.fromARGB(100, 192, 192, 192),
                     ),
                     child: Row(
                       children: [
@@ -163,11 +127,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           width: 35,
                           height: 35,
                         ),
-                        SizedBox(width: 40),
+                        const SizedBox(width: 40),
                         const Text(
                           'Continue with email',
                           style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 18,
                               color: Colors.black
                           ),
                         )

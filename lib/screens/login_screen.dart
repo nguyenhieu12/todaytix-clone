@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/services/google_service.dart';
-import '../screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -44,64 +43,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         )
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30),
+                      padding: const EdgeInsets.only(top: 40),
                       child: Center(
                           child: Column(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.55,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Color.fromARGB(100, 90, 34, 34)
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 15),
-                                  child: Row(
-                                    children: [
-                                      OutlinedButton(
-                                        onPressed: () {},
-                                        style: OutlinedButton.styleFrom(
-                                          shape: StadiumBorder(),
-                                          backgroundColor: Colors.white,
-                                        ),
-                                        child: const Text('Log in',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.black
-                                            )
-                                        ),
-                                      ),
-                                      SizedBox(width: 25),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(builder: (context) => const SignupScreen()));
-                                        },
-                                        style: OutlinedButton.styleFrom(
-                                          shape: StadiumBorder(),
-                                          backgroundColor: Colors.transparent,
-                                        ),
-                                        child: const Text('Sign up',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.white
-                                            )
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              const Text('Welcome',
+                            children: const [
+                              SizedBox(height: 50),
+                              Text('Welcome',
                                   style: TextStyle(
                                     fontSize: 50,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   )
                               ),
-                              const Text('Back',
+                              Text('Back',
                                   style: TextStyle(
                                     fontSize: 50,
                                     fontWeight: FontWeight.bold,
@@ -123,14 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: OutlinedButton(
                         onPressed: () {
-
+                          GoogleService.signInWithGoogle();
                         },
                         style: OutlinedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          backgroundColor: Color.fromARGB(100, 192, 192, 192),
+                          shape: const StadiumBorder(),
+                          backgroundColor: const Color.fromARGB(100, 192, 192, 192),
                         ),
                         child: Row(
                           children: [
@@ -139,11 +93,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 28,
                               height: 28,
                             ),
-                            SizedBox(width: 45),
+                            const SizedBox(width: 45),
                             const Text(
                               'Continue with Google',
                               style: TextStyle(
-                                  fontSize: 22,
+                                  fontSize: 18,
                                   color: Colors.black
                               ),
                             )
@@ -152,12 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          backgroundColor: Color.fromARGB(100, 192, 192, 192),
+                          shape: const StadiumBorder(),
+                          backgroundColor: const Color.fromARGB(100, 192, 192, 192),
                         ),
                         child: Row(
                           children: [
@@ -166,11 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 35,
                               height: 35,
                             ),
-                            SizedBox(width: 40),
+                            const SizedBox(width: 40),
                             const Text(
                               'Continue with email',
                               style: TextStyle(
-                                  fontSize: 22,
+                                  fontSize: 18,
                                   color: Colors.black
                               ),
                             )
@@ -179,29 +133,32 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          backgroundColor: Color.fromARGB(100, 192, 192, 192),
+                          shape: const StadiumBorder(),
+                          backgroundColor: const Color.fromARGB(100, 192, 192, 192),
                         ),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/facebook_logo.png',
-                              width: 45,
-                              height: 45,
-                            ),
-                            SizedBox(width: 30),
-                            const Text(
-                              'Continue with Facebook',
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.black
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 6),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/facebook_logo.png',
+                                width: 28,
+                                height: 28,
                               ),
-                            )
-                          ],
+                              const SizedBox(width: 40),
+                              const Text(
+                                'Continue with Facebook',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     )
