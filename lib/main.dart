@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/screens/onboarding_screen.dart';
 import 'package:flutter_project/screens/watchlist_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.redAccent,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: Watchlist(),
+      home: HomeScreen(),
     );
   }
 }

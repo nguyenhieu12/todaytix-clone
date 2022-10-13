@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
-/*
-import 'package:flutter_project/services/google_service.dart';
-*/
 
+import 'package:flutter_project/services/google_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -85,10 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.all(10),
                   child: OutlinedButton(
                     onPressed: () {
-/*
                       GoogleService.signInWithGoogle();
 
-*/
                     },
                     style: OutlinedButton.styleFrom(
                       shape: const StadiumBorder(),
@@ -105,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           'Continue with Google',
                           style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               fontSize: 18,
                               color: Colors.black
                           ),
@@ -132,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           'Continue with email',
                           style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               fontSize: 18,
                               color: Colors.black
                           ),
@@ -161,6 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Text(
                             'Continue with Facebook',
                             style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 color: Colors.black
                             ),

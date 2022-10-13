@@ -104,6 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         const Text(
                           'Continue with Google',
                           style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               fontSize: 18,
                               color: Colors.black
                           ),
@@ -131,6 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         const Text(
                           'Continue with email',
                           style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               fontSize: 18,
                               color: Colors.black
                           ),

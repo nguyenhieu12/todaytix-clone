@@ -1,4 +1,12 @@
+//import 'dart:html';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_project/screens/settings_screen.dart';
 import 'package:flutter_project/screens/watchlist_screen.dart';
+import 'package:flutter_project/services/google_service.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'details_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -363,6 +371,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
+  void isLoggedIn(double height) {
+    if(FirebaseAuth.instance.currentUser != null) {
+
+    } else {
+      showAccount(height * 0.6);
+    }
+  }
+
   void showAccount(double height) {
     showDialog<String>(
       context: context,
@@ -372,8 +388,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             children: [
               ListTile(
                 leading: Image.asset('assets/icons/login.png',
-                  width: 30,
-                  height: 30,
+                  width: 28,
+                  height: 28,
                 ),
                 title: Text('Login',
                   style: TextStyle(
@@ -383,8 +399,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               ListTile(
                 leading: Image.asset('assets/icons/signup.png',
-                  width: 30,
-                  height: 30,
+                  width: 26,
+                  height: 26,
                 ),
                 title: Text('Sign up',
                   style: TextStyle(
@@ -393,16 +409,87 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 onTap: () => bottomSheetLoginSignup(1),
               ),
               ListTile(
-                leading: Image.asset('assets/icons/saved.png',
-                  width: 30,
-                  height: 30,
+                leading: Image.asset('assets/icons/setting.png',
+                  width: 26,
+                  height: 26,
                 ),
-                title: Text('Watchlist',
+                title: Text('Settings',
                   style: TextStyle(
                     fontSize: 16,
                   ),),
-                onTap: () => Watchlist(),
+                onTap: () => SettingScreen(),
               ),
+              ListTile(
+                leading: Image.asset('assets/icons/question_mark.png',
+                  width: 25,
+                  height: 25,
+                ),
+                title: Text('Support & FAQs',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                onTap: () => launchURL('https://support.todaytix.com/support/home'),
+              )
+            ],
+          )
+      ),
+    );
+  }
+
+  void showAccountAfterLogin(double height) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => Container(
+          padding: EdgeInsets.only(top: height),
+          child: SimpleDialog(
+            children: [
+              Container(
+                child: GoogleService.getProfileImage()
+              ),
+              ListTile(
+                leading: Image.asset('assets/icons/login.png',
+                  width: 28,
+                  height: 28,
+                ),
+                title: Text('Login',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                onTap: () => bottomSheetLoginSignup(0),
+              ),
+              ListTile(
+                leading: Image.asset('assets/icons/signup.png',
+                  width: 26,
+                  height: 26,
+                ),
+                title: Text('Sign up',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                onTap: () => bottomSheetLoginSignup(1),
+              ),
+              ListTile(
+                leading: Image.asset('assets/icons/setting.png',
+                  width: 26,
+                  height: 26,
+                ),
+                title: Text('Settings',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                onTap: () => SettingScreen(),
+              ),
+              ListTile(
+                leading: Image.asset('assets/icons/question_mark.png',
+                  width: 25,
+                  height: 25,
+                ),
+                title: Text('Support & FAQs',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                onTap: () => launchURL('https://support.todaytix.com/support/home'),
+              )
             ],
           )
       ),
@@ -485,5 +572,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             )
         )
     );
+  }
+
+  launchURL(String url) async {
+    if(await canLaunchUrlString(url)) {
+      await launchURL(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
