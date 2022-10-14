@@ -337,6 +337,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               onPressed: () {},
             ),
             IconButton(
+              key: const Key('search_button'),
               icon: Image.asset("assets/icons/search.png",
                 width: 25,
                 height: 25,
@@ -429,7 +430,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     fontSize: 16,
                   ),),
                 onTap: () => launchURL('https://support.todaytix.com/support/home'),
-              )
+              ),
             ],
           )
       ),
