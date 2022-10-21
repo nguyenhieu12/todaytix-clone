@@ -1,0 +1,3 @@
+flutter_native_splash:
+  android_12:
+    image: "assets/today_tix.png"

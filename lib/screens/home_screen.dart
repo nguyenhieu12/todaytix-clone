@@ -7,7 +7,6 @@ import '../controllers/movies_controller.dart';
 import 'details_screen.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../main.dart';
 import 'search_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +14,7 @@ import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'login_screen.dart';
 import 'tab_builder.dart';
-
-
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -242,21 +240,41 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 onTap: () => bottomSheetLoginSignup(1),
               ),
               ListTile(
-                leading: Image.asset('assets/icons/saved.png',
+                leading: Image.asset('assets/icons/setting.png',
                   width: 30,
                   height: 30,
                 ),
-                title: Text('Watchlist',
+                title: Text('Setting',
                   style: TextStyle(
                     fontSize: 16,
                   ),),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Watchlist()))
                 ,
               ),
+              ListTile(
+                leading: Image.asset('assets/icons/question_mark.png',
+                  width: 30,
+                  height: 30,
+                ),
+                title: Text('Q&A Support',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                onTap: () => _launchURL()
+                ,
+              ),
             ],
           )
       ),
     );
+  }
+
+  _launchURL() async {
+    const url = "https://flutter.io";
+    if (await canLaunchUrlString(url))
+      await launchUrlString(url);
+    else
+      throw "Could not launch $url";
   }
 
   void bottomSheetLoginSignup(int screen) {

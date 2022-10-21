@@ -76,7 +76,7 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          Get.put(SearchController()).foundedMovies.length.toString() + ' results',
+                        Get.put(SearchController()).foundedMovies.length.toString() + ' results',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
