@@ -46,15 +46,14 @@ dependencies:
   flutter_facebook_auth: ^4.4.1+1
   xen_popup_card: ^0.0.1
   provider: ^6.0.3
-  url_launcher: ^6.1.6
-  smooth_page_indicator: ^1.0.0+2
+  get: ^4.6.5
+  http: ^0.13.5
+  fade_shimmer: ^2.0.1
 
 
 dev_dependencies:
   lint: ^1.0.0
   flutter_test:
-    sdk: flutter
-  integration_test:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
