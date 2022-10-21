@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
+import '../services/google_service.dart';
 /*
 import 'package:flutter_project/services/google_service.dart';
 */
@@ -85,10 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.all(10),
                   child: OutlinedButton(
                     onPressed: () {
-/*
                       GoogleService.signInWithGoogle();
-
-*/
                     },
                     style: OutlinedButton.styleFrom(
                       shape: const StadiumBorder(),

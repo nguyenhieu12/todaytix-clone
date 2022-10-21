@@ -1,9 +1,16 @@
+import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../model/show_model.dart';
+import '../api/api.dart';
+import '../controllers/search_controller.dart';
+import '../model/movie.dart';
+import '../others/utils.dart';
+import 'details_screen.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
+import '../others/search_box.dart';
 import 'signup_screen.dart';
 import 'watchlist_screen.dart';
 
@@ -14,34 +21,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMixin {
-  /*final controller = TextEditingController();*/
-
-  bool flag = false;
-
-  static List<Show> allShows = [
-    Show(
-      title: "Gaylarious: Comedy Laugh Festival",
-      subtitle: "From 12",
-      urlImage: "assets/1.jfif",
-    ),
-    Show(
-      title: "Chamber Magic",
-      subtitle: "",
-      urlImage: "assets/2.jfif",
-    ),
-    Show(
-      title: "Drunk Shakespeare",
-      subtitle: "From 45",
-      urlImage: "assets/3.jfif",
-    ),
-    Show(
-      title: "Merrily We Roll Along",
-      subtitle: "",
-      urlImage: "assets/4.jfif",
-    )
-  ];
-
-  List<Show> displayShow = List.from(allShows);
 
   @override
   Widget build(BuildContext context) {
@@ -50,82 +29,182 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 60, 20, 0),
-        child: Column(
-          children: [
-            TextField(
-              style: const TextStyle(
-                color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 40,
               ),
-              /*controller: controller,*/
-              decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 2, color: Colors.white),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 2, color: Colors.white),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  prefixIcon: const Icon(CupertinoIcons.search, color: Colors.white,),
-                  hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
-                  hintText: "Search for shows in New York"
+              SearchBox(
+                onSumbit: () {
+                  String search =
+                      Get.put(SearchController()).searchController.text;
+                  Get.put(SearchController()).searchController.text = '';
+                  Get.put(SearchController()).search(search);
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
               ),
-              onChanged: searchShow,
-            ),
-            const SizedBox(height: 20,),
-            SizedBox(
-                height: 2000,
-                child: displayShow.isNotEmpty
-                    ? ListView.builder(
-                    itemCount: displayShow.length,
-                    itemBuilder: (BuildContext context, int index) => Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ListTile(
-                          leading: Image.asset(
-                            displayShow[index].urlImage,
-                            fit: BoxFit.cover,
-                            width: 50,
-                            height: 100,
-                          ),
-                          title: Column(
-                            children: [
-                              Text(
-                                displayShow[index].title,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                displayShow[index].subtitle,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen()))
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(
+                (() => Get.put(SearchController()).isLoading.value
+                    ? const CircularProgressIndicator()
+                    : Get.put(SearchController()).foundedMovies.isEmpty
+                    ? SizedBox(
+                  width: Get.width / 1.5,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'Sorry, no result found!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    )
-                )
-                    : const Text(
-                  'Sorry, no results found.',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                      ),
+                    ],
                   ),
                 )
-            )
-          ],
+                    : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          Get.put(SearchController()).foundedMovies.length.toString() + ' results',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      ListView.separated(
+                          itemCount: Get.put(SearchController()).foundedMovies.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          separatorBuilder: (_, __) => const SizedBox(height: 20),
+                          itemBuilder: (_, index) {
+                            Movie movie = Get.put(SearchController())
+                                .foundedMovies[index];
+                            return GestureDetector(
+                              onTap: () => Get.to(DetailsScreen(movie: movie)),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: Image.network(
+                                      Api.imageBaseUrl + movie.posterPath,
+                                      height: 180,
+                                      width: 120,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (_, __, ___) => const Icon(
+                                        Icons.broken_image,
+                                        size: 120,
+                                      ),
+                                      loadingBuilder: (_, __, ___) {
+                                        if (___ == null) return __;
+                                        return const FadeShimmer(
+                                          width: 120,
+                                          height: 180,
+                                          highlightColor: Color(0xff22272f),
+                                          baseColor: Color(0xff20252d),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                    height: 180,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(
+                                          width: 200,
+                                          child: Text(
+                                            movie.title,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(CupertinoIcons.star, color: Color(0xFFFF8700),),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  movie.voteAverage == 0.0
+                                                      ? 'N/A'
+                                                      : movie.voteAverage.toString(),
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w200,
+                                                    color: Color(0xFFFF8700),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(CupertinoIcons.ticket, color: Colors.white,),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  Utils.getGenres(movie),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w200,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(CupertinoIcons.calendar, color: Colors.white,),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  movie.releaseDate.split('-')[0],
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          })
+                    ],
+                  ),
+                )),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
@@ -180,12 +259,6 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
         ),
       ),
     );
-  }
-
-  void searchShow(String query) {
-    setState(() => displayShow = allShows.where(
-        (show) => show.title.toLowerCase().contains(query.toLowerCase())
-    ).toList());
   }
 
   void showAccount(double height) {

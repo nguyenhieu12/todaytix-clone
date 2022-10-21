@@ -73,7 +73,9 @@ class LocaleState extends State<Watchlist> {
                 child: Container(
                     child: GestureDetector(
                       onTap: () {
+/*
                         Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+*/
                       },
                       child: Column(
                         children: [

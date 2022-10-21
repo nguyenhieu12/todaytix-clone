@@ -1,29 +1,23 @@
 import 'dart:ui';
 
-import 'package:readmore/readmore.dart';
+import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:readmore/readmore.dart';
+import '../api/api.dart';
+import '../api/api_service.dart';
+import '../controllers/movies_controller.dart';
+import '../model/movie.dart';
+import '../model/review.dart';
+import '../others/utils.dart';
 
-class DetailsScreen extends StatefulWidget {
-
-  @override
-  _DetailsScreenState createState() => _DetailsScreenState();
-}
-
-class _DetailsScreenState extends State<DetailsScreen> with TickerProviderStateMixin {
-
-  int current = 0;
-
-  List<String> items = [
-    "Info",
-    "Venue"
-  ];
-
-  int itemsLength(String item) {
-    if (item == "Info")
-      return item.length + 22;
-    return item.length + 40;
-  }
+class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +35,27 @@ class _DetailsScreenState extends State<DetailsScreen> with TickerProviderStateM
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * (1 - 0.63),
                     width: MediaQuery.of(context).size.width,
-                    child: Image.asset('assets/0.png'),
+                    child: Image.network(
+                      Api.imageBaseUrl + movie.backdropPath,
+                      width: Get.width,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (_, __, ___) {
+                        if (___ == null) return __;
+                        return FadeShimmer(
+                          width: Get.width,
+                          height: 250,
+                          highlightColor: const Color(0xff22272f),
+                          baseColor: const Color(0xff20252d),
+                        );
+                      },
+                      errorBuilder: (_, __, ___) => const Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 250,
+                        ),
+                      ),
+                    ),
                     /*child: CachedNetworkImage(
                           imageUrl: info.backdrops,
                           fit: BoxFit.cover,
@@ -63,16 +77,36 @@ class _DetailsScreenState extends State<DetailsScreen> with TickerProviderStateM
                         ),
                         Row(
                           children: [
-                            CreateIcons(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => Container(),
-                                );
-                              },
-                              child: const Icon(
-                                CupertinoIcons.bookmark,
-                                color: Colors.black,
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              child: ClipOval(
+                                  child: Container(
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Get.put(MoviesController()).addToWatchList(movie);
+                                      },
+                                      icon: Obx(
+                                            () =>
+                                        Get.put(MoviesController()).isInWatchList(movie)
+                                            ? const Icon(
+                                          Icons.bookmark,
+                                          color: Colors.red,
+                                        )
+                                            : const Icon(
+                                          Icons.bookmark_outline,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  )
                               ),
                             ),
                             SizedBox(
@@ -113,9 +147,22 @@ class _DetailsScreenState extends State<DetailsScreen> with TickerProviderStateM
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.asset('assets/1.jfif',
+                          child: Image.network(
+                            'https://image.tmdb.org/t/p/w500/' +
+                                movie.posterPath,
                             width: 120,
-                          ),
+                            height: 180,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (_, __, ___) {
+                              if (___ == null) return __;
+                              return const FadeShimmer(
+                                width: 110,
+                                height: 140,
+                                highlightColor: Color(0xff22272f),
+                                baseColor: Color(0xff20252d),
+                              );
+                            },
+                          )
                         ),
                       ),
                     ),
@@ -127,37 +174,16 @@ class _DetailsScreenState extends State<DetailsScreen> with TickerProviderStateM
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              height: 18,
-                              child: Text(
-                                "  Musical  ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 5),
                             Text(
-                              "The Piano Lesson on Broadway",
+                              movie.title,
                               style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
-                            const SizedBox(height: 5),
-                            Text(
-                              "Samuel L. Jackson. Danielle Brooks. John David Washington. Need we say more?",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 10),
+                            const SizedBox(height: 10),
                           ],
                         ),
                       ),
@@ -165,170 +191,96 @@ class _DetailsScreenState extends State<DetailsScreen> with TickerProviderStateM
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Column(
-                  children: [
-                    /// CUSTOM TABBAR
-                    Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(top: 13, bottom: 15),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: Color.fromRGBO(128, 128, 128, 0.2), width: 2, style: BorderStyle.solid),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 31,
-                          child: ListView.builder(
-                            /*physics: const BouncingScrollPhysics(),*/
-                              itemCount: items.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (ctx, index) {
-                                return Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          current = index;
-                                        });
-                                      },
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            child: Row(
-                                              children: [
-                                                Center(
-                                                  child: Text(items[index],
-                                                    style: TextStyle(
-                                                      color: current == index
-                                                          ? Colors.black
-                                                          : Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            margin: const EdgeInsets.only(bottom: 10, right: 20),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: DefaultTabController(
+                  length: 2,
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: const TabBar(
+                            indicatorWeight: 4,
+                            labelColor: Colors.red,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicatorColor: Colors.redAccent,
+                            unselectedLabelColor: Colors.grey,
+                            tabs: [
+                              Tab(text: 'About Movie',),
+                              Tab(text: 'Reviews'),
+                            ]),
+                      ),
+                      SizedBox(
+                        height: 400,
+                        child: TabBarView(children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('About ' + movie.title,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                ReadMoreText(
+                                  movie.overview,
+                                  trimLines: 4,
+                                  colorClickableText: Colors.black,
+                                  moreStyle: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline
+                                  ),
+                                  lessStyle: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline
+                                  ),
+                                  trimMode: TrimMode.Line,
+                                  trimCollapsedText: '\nRead More',
+                                  trimExpandedText: '\nShow less',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                                        leading: Icon(Icons.calendar_month_outlined, color: Colors.redAccent,),
+                                        title: Text('Release Date',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
                                           ),
-                                          AnimatedPositioned(
-                                              duration: const Duration(milliseconds: 400),
-                                              curve: Curves.fastOutSlowIn,
-                                              bottom: 1,
-                                              child: Column(
-                                                children: [
-                                                  Stack(
-                                                    children: [
-                                                      Container(
-                                                        width: itemsLength(items[index]).toDouble(),
-                                                        height: current == index
-                                                            ? 4
-                                                            : 2,
-                                                        decoration: ShapeDecoration(
-                                                          shape: StadiumBorder(),
-                                                          color: current == index
-                                                              ? Colors.redAccent
-                                                              : Color.fromRGBO(128, 128, 128, 0),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              )
-                                          ),
-                                        ],
+                                        ),
+                                        subtitle: Text(movie.releaseDate.split('-')[0]),
                                       ),
-                                    ),
-                                  ],
-                                );
-                              }
+                                      ListTile(
+                                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                                        leading: Icon(Icons.emoji_emotions_outlined, color: Colors.redAccent,),
+                                        title: Text('Genres',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        subtitle: Text(Utils.getGenres(movie)),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
                           ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 30, bottom: 25),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Color.fromRGBO(128, 128, 128, 0.2), width: 2, style: BorderStyle.solid),
-                        ),
+                          Container()
+                        ]),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('About The Piano Lession on Broadway',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 5,),
-                          ReadMoreText(
-                            "See Oscar winner Samuel L. Jackson (Pulp Fiction), Tony and Emmy nominee Danielle Brooks (Orange Is the New Black), and Golden Globe nominee John David Washington (BlacKkKlansman) together on stage in August Wilson's gripping drama. These celebrated actors play a family haunted by the ghosts of their past as they figure out how to forge their future.",
-                            trimLines: 4,
-                            colorClickableText: Colors.black,
-                            moreStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline
-                            ),
-                            lessStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline
-                            ),
-                            trimMode: TrimMode.Line,
-                            trimCollapsedText: '\nRead More',
-                            trimExpandedText: '\nHire',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        children: [
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                            leading: Icon(Icons.calendar_month_outlined, color: Colors.redAccent,),
-                            title: Text('Starting Date',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                            subtitle: Text('10 December 2022'),
-                          ),
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                            leading: Icon(Icons.calendar_month_outlined, color: Colors.redAccent,),
-                            title: Text('Closing Date',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                            subtitle: Text('10 December 2022'),
-                          ),
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                            leading: Icon(Icons.emoji_emotions_outlined, color: Colors.redAccent,),
-                            title: Text('Genres',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                            subtitle: Text('Concert'),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ])
@@ -368,18 +320,18 @@ class _DetailsScreenState extends State<DetailsScreen> with TickerProviderStateM
                 ElevatedButton(
                   onPressed: () {},
                   child: Text(
-                    'Get tickets'
+                      'Get tickets'
                   ),
                   style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    minimumSize: Size(250, 50),
-                    backgroundColor: Colors.redAccent,
-                    textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    )
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      minimumSize: Size(250, 50),
+                      backgroundColor: Colors.redAccent,
+                      textStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18
+                      )
                   ),
                 )
               ],
@@ -407,14 +359,14 @@ class CreateIcons extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: ClipOval(
-        child: Container(
-          padding: const EdgeInsets.all(7),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          child: InkWell(onTap: onTap, child: child),
-        )
+          child: Container(
+            padding: const EdgeInsets.all(7),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+            child: InkWell(onTap: onTap, child: child),
+          )
       ),
     );
   }

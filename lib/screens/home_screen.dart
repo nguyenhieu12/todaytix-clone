@@ -1,5 +1,9 @@
 import 'package:flutter_project/screens/watchlist_screen.dart';
+import 'package:get/get.dart';
 
+import '../api/api.dart';
+import '../api/api_service.dart';
+import '../controllers/movies_controller.dart';
 import 'details_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,6 +14,7 @@ import 'package:flutter/material.dart';
 
 import 'signup_screen.dart';
 import 'login_screen.dart';
+import 'tab_builder.dart';
 
 
 
@@ -22,52 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
-  int current = 0;
-  bool flag = false;
-
-  List<String> titleCarousel = [
-    "Football",
-    "School",
-    "Grocery store",
-  ];
-  List<String> subtitleCarousel = [
-    "I want to play football",
-    "I go to school by bus everyday",
-    "I want to go to grocery store with my mother at weekend",
-  ];
-
-  List<String> items = [
-    "All",
-    "Watchlist",
-    "Lottery & Rush",
-    "Date",
-    "No-fee",
-    "Musicals",
-    "Plays",
-    "Matinee",
-    "Evening"
-  ];
-
-  int itemsLength(String item) {
-    if (item == "All") {
-      return item.length + 40;
-    } else if (item == "Watchlist") {
-      return item.length + 80;
-    } else if (item == "Lottery & Rush") {
-      return item.length + 110;
-    } else if (item == "Date") {
-      return item.length + 50;
-    } else if (item == "No-fee") {
-      return item.length + 65;
-    } else if (item == "Musicals") {
-      return item.length + 80;
-    } else if (item == "Plays") {
-      return item.length + 60;
-    } else if (item == "Matinee") {
-      return item.length + 70;
-    }
-    return item.length + 70;
-  }
+  final MoviesController controller = Get.put(MoviesController());
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +58,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 autoPlayCurve: Curves.fastOutSlowIn,
                 enlargeCenterPage: true,
               ),
-              items: [0,1,2].map((i) {
+              items: [0, 1, 2, 3, 4].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsScreen()));
-                      },
+                      onTap: () => Get.to(
+                        DetailsScreen(movie: controller.mainTopRatedMovies[i]),
+                      ),
                       child: Container(
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -112,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             color: Colors.amber,
                             borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
-                              image: AssetImage('assets/$i.png'),
+                              image: NetworkImage(Api.imageBaseUrl + controller.mainTopRatedMovies[i].posterPath),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -123,22 +83,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  titleCarousel[i],
+                                  controller.mainTopRatedMovies[i].title,
                                   style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ), //Textstyle
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  subtitleCarousel[i],
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                  ),
                                 ),
                               ],
                             ),
@@ -152,161 +102,49 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             const SizedBox(
               height: 20,
             ),
-            Column(
-              children: [
-                /// CUSTOM TABBAR
-                SizedBox(
-                  width: double.infinity,
-                  height: 60,
-                  child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: items.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (ctx, index) {
-                        return Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  current = index;
-                                });
-                              },
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 300),
-                                margin: const EdgeInsets.all(5),
-                                width: itemsLength(items[index]).toDouble(),
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: current == index
-                                      ? Colors.white
-                                      : const Color.fromRGBO(64, 61, 70, 1),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    items[index],
-                                    style: TextStyle(
-                                        color: current == index
-                                            ? Colors.black
-                                            : Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                ),
-
-                Container(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen()));
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 150,
-                            decoration: const BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
-                              image: DecorationImage(
-                                image: AssetImage('assets/1.png'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                                    width: 35,
-                                    height: 35,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Color.fromRGBO(0, 0, 0, 0.5),
-                                    ),
-                                    child: const Center(
-                                      child: Icon(Icons.bookmark_border, size: 20, color: Colors.white,),
-                                    ),
-                                  ),
-                                ]
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(20, 7, 20, 5), // left top right bottom,
-                            height: 55,
-                            decoration: const BoxDecoration(
-                              color: Color.fromRGBO(64, 61, 70, 1), // 64, 61, 70, 1
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10),
-                              ),
-                            ),
-                            child: Row (
-                                children: <Widget>[
-                                  Expanded(
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: const [
-                                            Text(
-                                              'Mean Girls',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                              ), //Textstyle
-                                            ),
-                                            Text(
-                                              'Opens Oct 11',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey,
-                                              ), //Textstyle
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: const [
-                                            Text(
-                                              'from 39',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                              ), //Textstyle
-                                            ),
-                                            Text(
-                                              'Save 26%',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white,
-                                              ), //Textstyle
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                  ),
-                                ]
-                            ),
-                          )
-                        ],
+            DefaultTabController(
+              length: 4,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: const TabBar(
+                        indicatorWeight: 4,
+                        labelColor: Colors.red,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicatorColor: Colors.redAccent,
+                        unselectedLabelColor: Colors.grey,
+                        tabs: [
+                          Tab(text: 'Now playing'),
+                          Tab(text: 'Upcoming'),
+                          Tab(text: 'Top rated'),
+                          Tab(text: 'Popular'),
+                        ]),
+                  ),
+                  Container(
+                    height: 1400,
+                    child: TabBarView(children: [
+                      TabBuilder(
+                        future: ApiService.getCustomMovies(
+                            'now_playing?api_key=${Api.apiKey}&language=en-US&page=1'),
                       ),
-                    )
-                ),
-
-              ],
-            ),
+                      TabBuilder(
+                        future: ApiService.getCustomMovies(
+                            'upcoming?api_key=${Api.apiKey}&language=en-US&page=1'),
+                      ),
+                      TabBuilder(
+                        future: ApiService.getCustomMovies(
+                            'top_rated?api_key=${Api.apiKey}&language=en-US&page=1'),
+                      ),
+                      TabBuilder(
+                        future: ApiService.getCustomMovies(
+                            'popular?api_key=${Api.apiKey}&language=en-US&page=1'),
+                      ),
+                    ]),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -339,7 +177,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   PageRouteBuilder(
                     pageBuilder: (_, __, ___) => SearchScreen(),
                     transitionDuration: Duration(seconds: 1),
-                    transitionsBuilder: (_, a, __, c) => FadeTransition(opacity: a, child: c),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      var begin = const Offset(0.0, -1.0);
+                      var end = Offset.zero;
+                      var curve = Curves.ease;
+
+                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                      return SlideTransition(
+                        position: animation.drive(tween),
+                        child: child,
+                      );
+                    },
                   ),
                 );
               },
@@ -401,7 +250,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   style: TextStyle(
                     fontSize: 16,
                   ),),
-                onTap: () => Watchlist(),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Watchlist()))
+                ,
               ),
             ],
           )
