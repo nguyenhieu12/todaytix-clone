@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -87,6 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: OutlinedButton(
                     onPressed: () {
                       GoogleService.signInWithGoogle();
+                      if(FirebaseAuth.instance.currentUser != null) {
+                        Navigator.of(context, rootNavigator: true).pop('dialog');
+                        Navigator.pop(context);
+                      }
                     },
                     style: OutlinedButton.styleFrom(
                       shape: const StadiumBorder(),
@@ -177,6 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  static void loginAndHideDialog() {
+    GoogleService.signInWithGoogle();
+
+  }
 }
 
 class LoginScreenClipPath extends CustomClipper<Path> {

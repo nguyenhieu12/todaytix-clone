@@ -51,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 enableInfiniteScroll: true,
                 reverse: false,
                 autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
                 autoPlayCurve: Curves.fastOutSlowIn,
                 enlargeCenterPage: true,
               ),
@@ -104,9 +104,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               length: 4,
               child: Column(
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
-                    child: const TabBar(
+                    child: TabBar(
                         indicatorWeight: 4,
                         labelColor: Colors.red,
                         indicatorSize: TabBarIndicatorSize.label,
@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (_, __, ___) => SearchScreen(),
-                    transitionDuration: Duration(seconds: 1),
+                    transitionDuration: const Duration(seconds: 1),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       var begin = const Offset(0.0, -1.0);
                       var end = Offset.zero;
@@ -222,18 +222,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   width: 30,
                   height: 30,
                 ),
-                title: Text('Login',
+                title: const Text('Login',
                   style: TextStyle(
                     fontSize: 16,
                   ),),
-                onTap: () => bottomSheetLoginSignup(0),
+                onTap: () {
+                  bottomSheetLoginSignup(0);
+                }
               ),
               ListTile(
                 leading: Image.asset('assets/icons/signup.png',
                   width: 30,
                   height: 30,
                 ),
-                title: Text('Sign up',
+                title: const Text('Sign up',
                   style: TextStyle(
                     fontSize: 16,
                   ),),
@@ -244,11 +246,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   width: 30,
                   height: 30,
                 ),
-                title: Text('Setting',
+                title: const Text('Setting',
                   style: TextStyle(
                     fontSize: 16,
                   ),),
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Watchlist()))
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Watchlist()))
                 ,
               ),
               ListTile(
@@ -256,12 +258,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   width: 30,
                   height: 30,
                 ),
-                title: Text('Q&A Support',
+                title: const Text('Q&A Support',
                   style: TextStyle(
                     fontSize: 16,
                   ),),
                 onTap: () => _launchURL()
                 ,
+              ),
+            ],
+          )
+      ),
+    );
+  }
+
+  void showAccountAfterLogin(double height) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => Container(
+          padding: EdgeInsets.only(top: height),
+          child: SimpleDialog(
+            children: [
+              ListTile(
+                leading: Image.asset('assets/icons/login.png',
+                  width: 30,
+                  height: 30,
+                ),
+                title: const Text('Login',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                onTap: () => bottomSheetLoginSignup(0),
               ),
             ],
           )
@@ -297,9 +323,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   child: TabBarView(
                     controller: tabController,
                     children: <Widget> [
-                      //setTabbarView(screen)
-                      LoginScreen(),
-                      SignupScreen()
+                      const LoginScreen(),
+                      const SignupScreen()
                     ],
                   ),
                 ),
@@ -309,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.clear),
+                    icon: const Icon(Icons.clear),
                     color: Colors.white,
                   ),
                 ),
@@ -320,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       height: 35,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: Color.fromARGB(100, 90, 34, 34)
+                          color: const Color.fromARGB(100, 90, 34, 34)
                       ),
                       child: TabBar(
                         controller: tabController,

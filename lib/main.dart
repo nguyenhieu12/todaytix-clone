@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'screens/home_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -23,9 +23,6 @@ Future init(BuildContext? context) async {
 }
 
 class MyApp extends StatelessWidget {
-
-  bool flag = false;
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -42,5 +39,17 @@ class MyApp extends StatelessWidget {
       ),
       home: HomeScreen(),
     );
+    // return FutureBuilder<FirebaseUser>(
+    //     future: FirebaseAuth.instance.currentUser(),
+    //     builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot){
+    //       if (snapshot.hasData){
+    //         FirebaseUser user = snapshot.data; // this is your user instance
+    //         /// is because there is user already logged
+    //         return MainScreen();
+    //       }
+    //       /// other way there is no user logged.
+    //       return LoginScreen();
+    //     }
+    // );
   }
 }
