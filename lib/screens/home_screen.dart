@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_project/screens/watchlist_screen.dart';
+import 'package:flutter_project/services/google_service.dart';
 import 'package:get/get.dart';
 
 import '../api/api.dart';
@@ -198,7 +200,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 color: Colors.grey,
               ),
               onPressed: () {
-                showAccount(mHeight * 0.6);
+                if(FirebaseAuth.instance.currentUser == null) {
+                  showAccount(mHeight * 0.6);
+                } else {
+                  showAccountAfterLogin(mHeight * 0.6);
+                }
               },
             ),
             const SizedBox(
@@ -212,6 +218,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void showAccount(double height) {
     showDialog<String>(
+      barrierColor: Colors.grey.shade100,
       context: context,
       builder: (BuildContext context) => Container(
           padding: EdgeInsets.only(top: height),
@@ -272,22 +279,33 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void showAccountAfterLogin(double height) {
+    String? profileImage = FirebaseAuth.instance.currentUser?.photoURL.toString();
     showDialog<String>(
+      barrierColor: Colors.grey.shade100,
       context: context,
       builder: (BuildContext context) => Container(
           padding: EdgeInsets.only(top: height),
-          child: SimpleDialog(
+          child: Column(
             children: [
-              ListTile(
-                leading: Image.asset('assets/icons/login.png',
-                  width: 30,
-                  height: 30,
-                ),
-                title: const Text('Login',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),),
-                onTap: () => bottomSheetLoginSignup(0),
+              FirebaseAuth.instance.currentUser?.photoURL != null ? Image.network(profileImage!, height: 100, width: 100)
+                  : Icon(Icons.account_circle, size: 100),
+              SimpleDialog(
+                children: [
+                  ListTile(
+                    leading: Image.asset('assets/icons/login.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    title: const Text('Log out',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),),
+                    onTap: () {
+                      GoogleService.logOut();
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    }
+                  ),
+                ],
               ),
             ],
           )

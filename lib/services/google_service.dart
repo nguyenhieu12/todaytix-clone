@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_project/screens/home_screen.dart';
 import 'package:flutter_project/screens/login_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,7 +19,7 @@ class GoogleService {
     );
   }
 
-  static signInWithGoogle() async {
+  static logInWithGoogle() async {
     final GoogleSignInAccount? user = await GoogleSignIn(
       scopes: <String>["email"]
     ).signIn();
@@ -33,8 +34,9 @@ class GoogleService {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  static signOut() {
+  static logOut() {
     FirebaseAuth.instance.signOut();
   }
+
 
 }

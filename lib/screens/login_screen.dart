@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.all(10),
                   child: OutlinedButton(
                     onPressed: () {
-                      GoogleService.signInWithGoogle();
+                      GoogleService.logInWithGoogle();
                       if(FirebaseAuth.instance.currentUser != null) {
                         Navigator.of(context, rootNavigator: true).pop('dialog');
                         Navigator.pop(context);
@@ -183,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   static void loginAndHideDialog() {
-    GoogleService.signInWithGoogle();
+    GoogleService.logInWithGoogle();
 
   }
 }
