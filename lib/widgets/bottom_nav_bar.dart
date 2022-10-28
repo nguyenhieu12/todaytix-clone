@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iconify_flutter/icons/charm.dart';
-import 'package:iconify_flutter/icons/lucide.dart';
-import 'package:iconify_flutter/icons/majesticons.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../screens/home_screen.dart';
