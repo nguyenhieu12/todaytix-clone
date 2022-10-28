@@ -24,12 +24,12 @@ Tuần 4: Giao diện
 Tuần 5: Hoàn thiện các giao diện, kết nối firebase
 
 
-![flutter_project-–-search_screen dart-_flutter_project_-2022-10-07-13-18-08](https://user-images.githubusercontent.com/78216372/194483031-b0650fba-54dc-4b33-a2de-
+![flutter_project-–-search_screen dart-_flutter_project_-2022-10-07-13-18-08](https://user-images.githubusercontent.com/78216372/194483031-b0650fba-54dc-4b33-a2de-4c66f21df3ec.gif)
 
 
 Tuần 7: Integartion test
 
-4c66f21df3ec.gif)![flutter_project – search_box dart  flutter_project  2022-10-28 13-39-59](https://user-images.githubusercontent.com/78216372/198521407-02d88499-bed0-4ce3-ae1f-a520739bb451.gif)
+![flutter_project – search_box dart  flutter_project  2022-10-28 13-39-59](https://user-images.githubusercontent.com/78216372/198521407-02d88499-bed0-4ce3-ae1f-a520739bb451.gif)
 
 Tuần 8: Monkey test
 
