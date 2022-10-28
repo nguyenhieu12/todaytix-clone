@@ -25,3 +25,8 @@ Tuần 5: Hoàn thiện các giao diện, kết nối firebase
 
 
 ![flutter_project-–-search_screen dart-_flutter_project_-2022-10-07-13-18-08](https://user-images.githubusercontent.com/78216372/194483031-b0650fba-54dc-4b33-a2de-4c66f21df3ec.gif)
+
+Tuần 8: Monkey test
+
+![monkey_test](https://user-images.githubusercontent.com/78216372/198516684-063be2f5-fdd5-4016-a680-337f2bce9a66.png)
+
