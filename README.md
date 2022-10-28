@@ -27,7 +27,7 @@ Tuần 5: Hoàn thiện các giao diện, kết nối firebase
 ![flutter_project-–-search_screen dart-_flutter_project_-2022-10-07-13-18-08](https://user-images.githubusercontent.com/78216372/194483031-b0650fba-54dc-4b33-a2de-4c66f21df3ec.gif)
 
 
-Tuần 5: Giao diện
+Tuần 6: Giao diện, thêm movie vào Watchlist
 
 https://user-images.githubusercontent.com/91106338/198521895-a55a3038-fcd4-40e5-b3b1-d998d33ca7ca.mp4
 
