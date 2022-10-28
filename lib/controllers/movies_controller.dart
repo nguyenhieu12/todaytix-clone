@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../api/api_service.dart';
 import '../model/movie.dart';
@@ -21,14 +23,15 @@ class MoviesController extends GetxController {
   void addToWatchList(Movie movie) {
     if (watchListMovies.any((m) => m.id == movie.id)) {
       watchListMovies.remove(movie);
-      Get.snackbar('Success', 'removed from watch list',
-          snackPosition: SnackPosition.BOTTOM,
-          animationDuration: const Duration(milliseconds: 500),
-          duration: const Duration(milliseconds: 500));
     } else {
       watchListMovies.add(movie);
-      Get.snackbar('Success', 'added to watch list',
-          snackPosition: SnackPosition.BOTTOM,
+      Get.snackbar('Success', 'Added to Watchlist',
+          snackPosition: SnackPosition.TOP,
+          icon: Icon(
+            CupertinoIcons.bookmark_fill,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.red,
           animationDuration: const Duration(milliseconds: 500),
           duration: const Duration(milliseconds: 500));
     }

@@ -1,6 +1,6 @@
-import '../model/movie.dart';
+import 'movie.dart';
 
-class Utils{
+class Utils {
   static String getGenres(Movie movie) {
     List<String> genres = [];
 

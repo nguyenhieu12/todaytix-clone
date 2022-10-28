@@ -9,9 +9,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FlutterNativeSplash.removeAfter((p0) => init(null));
 
@@ -31,10 +29,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        scaffoldBackgroundColor: const Color(0xFF0C0303),
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.blue,
         splashColor: Colors.transparent,
-        primaryColor: Colors.redAccent,
+        primaryColor: Colors.red,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: HomeScreen(),

@@ -24,10 +24,12 @@ class SearchBox extends StatelessWidget {
             borderSide: const BorderSide(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(30),
           ),
-          prefixIcon: const Icon(CupertinoIcons.search, color: Colors.white,),
+          prefixIcon: const Icon(
+            CupertinoIcons.search,
+            color: Colors.white,
+          ),
           hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
-          hintText: "Search for shows in New York"
-      ),
+          hintText: "Search for shows in New York"),
       onSubmitted: (a) => onSumbit(),
     );
   }
