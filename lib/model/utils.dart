@@ -32,3 +32,15 @@ class Utils {
     return genres.isEmpty ? 'N/A' : genres.take(2).join(', ');
   }
 }
+
+class Genre {
+  int id;
+  String title;
+  bool active;
+
+  Genre(this.id, this.title, {this.active = false});
+
+  void toggleActive() {
+    active = !active;
+  }
+}

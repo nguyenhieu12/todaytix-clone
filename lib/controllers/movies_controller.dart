@@ -6,12 +6,12 @@ import '../model/movie.dart';
 
 class MoviesController extends GetxController {
   var isLoading = false.obs;
-  var mainTopRatedMovies = <Movie>[].obs;
+  var upComingMovies = <Movie>[].obs;
   var watchListMovies = <Movie>[].obs;
   @override
   void onInit() async {
     isLoading.value = true;
-    mainTopRatedMovies.value = (await ApiService.getTopRatedMovies())!;
+    upComingMovies.value = (await ApiService.getUpcomingMovies())!;
     isLoading.value = false;
     super.onInit();
   }

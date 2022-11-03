@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 import '../model/review.dart';
 
 class ApiService {
-  static Future<List<Movie>?> getTopRatedMovies() async {
+  static Future<List<Movie>?> getUpcomingMovies() async {
     List<Movie> movies = [];
     try {
       http.Response response = await http.get(Uri.parse(
-          '${Api.baseUrl}movie/top_rated?api_key=${Api.apiKey}&language=en-US&page=1'));
+          '${Api.baseUrl}movie/upcoming?api_key=${Api.apiKey}&language=en-US&page=1'));
       var res = jsonDecode(response.body);
       res['results'].skip(6).take(5).forEach(
             (m) => movies.add(
@@ -22,11 +22,11 @@ class ApiService {
     }
   }
 
-  static Future<List<Movie>?> getCustomMovies(String url) async {
+  static Future<List<Movie>?> getAllUpcomingMovies() async {
     List<Movie> movies = [];
     try {
-      http.Response response =
-          await http.get(Uri.parse('${Api.baseUrl}movie/$url'));
+      http.Response response = await http.get(Uri.parse(
+          '${Api.baseUrl}movie/upcoming?api_key=${Api.apiKey}&language=en-US&page=1'));
       var res = jsonDecode(response.body);
       res['results'].take(6).forEach(
             (m) => movies.add(
@@ -77,5 +77,4 @@ class ApiService {
       return null;
     }
   }
-
 }

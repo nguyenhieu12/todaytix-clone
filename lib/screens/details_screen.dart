@@ -140,6 +140,9 @@ class DetailsScreen extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 20,
+                    ),
                     Flexible(
                       flex: 1,
                       child: Container(

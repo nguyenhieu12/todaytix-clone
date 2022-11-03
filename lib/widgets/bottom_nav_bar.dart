@@ -23,6 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar>
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
     return Container(
+      color: Color.fromRGBO(28, 28, 33, 1),
       padding: const EdgeInsets.symmetric(horizontal: 35),
       height: 50,
       width: double.infinity,

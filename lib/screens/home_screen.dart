@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import '../api/api.dart';
 import '../api/api_service.dart';
 import '../controllers/movies_controller.dart';
+import '../model/movie.dart';
+import '../model/utils.dart';
 import 'details_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -27,6 +29,32 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final MoviesController controller = Get.put(MoviesController());
+  late List<Genre> genres;
+
+  @override
+  void initState() {
+    super.initState();
+    genres = [
+      Genre(12, 'Adventure', active: true),
+      Genre(16, 'Animation'),
+      Genre(35, 'Comedy'),
+      Genre(80, 'Crime'),
+      Genre(99, 'Documentary'),
+      Genre(18, 'Drama'),
+      Genre(10751, 'Family'),
+      Genre(14, 'Fantasy'),
+      Genre(36, 'History'),
+      Genre(27, 'Horror'),
+      Genre(10402, 'Music'),
+      Genre(9648, 'Mystery'),
+      Genre(210749, 'Romance'),
+      Genre(878, 'Science Fiction'),
+      Genre(10770, 'TV Movie'),
+      Genre(53, 'Thriller'),
+      Genre(10752, 'War'),
+      Genre(37, 'Western'),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           autoPlay: true,
                           autoPlayInterval: Duration(seconds: 3),
                         ),
-                        items: controller.mainTopRatedMovies.map((movie) {
+                        items: controller.upComingMovies.map((movie) {
                           return Builder(
                             builder: (BuildContext context) {
                               return InkWell(
@@ -155,48 +183,300 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       const SizedBox(
                         height: 20,
                       ),
-                      DefaultTabController(
-                        length: 4,
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: const TabBar(
-                                  indicatorWeight: 4,
-                                  labelColor: Colors.red,
-                                  indicatorSize: TabBarIndicatorSize.label,
-                                  indicatorColor: Colors.redAccent,
-                                  unselectedLabelColor: Colors.grey,
-                                  tabs: [
-                                    Tab(text: 'Now playing'),
-                                    Tab(text: 'Upcoming'),
-                                    Tab(text: 'Top rated'),
-                                    Tab(text: 'Popular'),
-                                  ]),
-                            ),
-                            Container(
-                              height: 1400,
-                              child: TabBarView(children: [
-                                TabBuilder(
-                                  future: ApiService.getCustomMovies(
-                                      'now_playing?api_key=${Api.apiKey}&language=en-US&page=1'),
-                                ),
-                                TabBuilder(
-                                  future: ApiService.getCustomMovies(
-                                      'upcoming?api_key=${Api.apiKey}&language=en-US&page=1'),
-                                ),
-                                TabBuilder(
-                                  future: ApiService.getCustomMovies(
-                                      'top_rated?api_key=${Api.apiKey}&language=en-US&page=1'),
-                                ),
-                                TabBuilder(
-                                  future: ApiService.getCustomMovies(
-                                      'popular?api_key=${Api.apiKey}&language=en-US&page=1'),
-                                ),
-                              ]),
-                            ),
-                          ],
-                        ),
+                      // DefaultTabController(
+                      //   length: 4,
+                      //   child: Column(
+                      //     children: [
+                      //       Align(
+                      //         alignment: Alignment.centerLeft,
+                      //         child: const TabBar(
+                      //             indicatorWeight: 4,
+                      //             labelColor: Colors.red,
+                      //             indicatorSize: TabBarIndicatorSize.label,
+                      //             indicatorColor: Colors.redAccent,
+                      //             unselectedLabelColor: Colors.grey,
+                      //             tabs: [
+                      //               Tab(text: 'Now playing'),
+                      //               Tab(text: 'Upcoming'),
+                      //               Tab(text: 'Top rated'),
+                      //               Tab(text: 'Popular'),
+                      //             ]),
+                      //       ),
+                      //       Container(
+                      //         height: 1400,
+                      //         child: TabBarView(children: [
+                      //           TabBuilder(
+                      //             future: ApiService.getCustomMovies(
+                      //                 'now_playing?api_key=${Api.apiKey}&language=en-US&page=1'),
+                      //           ),
+                      //           TabBuilder(
+                      //             future: ApiService.getCustomMovies(
+                      //                 'upcoming?api_key=${Api.apiKey}&language=en-US&page=1'),
+                      //           ),
+                      //           TabBuilder(
+                      //             future: ApiService.getCustomMovies(
+                      //                 'top_rated?api_key=${Api.apiKey}&language=en-US&page=1'),
+                      //           ),
+                      //           TabBuilder(
+                      //             future: ApiService.getCustomMovies(
+                      //                 'popular?api_key=${Api.apiKey}&language=en-US&page=1'),
+                      //           ),
+                      //         ]),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // )
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 42,
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Chip(
+                                      title: genres[index].title,
+                                      active: genres[index].active,
+                                      onTap: () {
+                                        setState(() {
+                                          genres[index].toggleActive();
+                                        });
+                                      });
+                                },
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(width: 10),
+                                itemCount: genres.length),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FutureBuilder<List<Movie>?>(
+                              future: ApiService.getAllUpcomingMovies(),
+                              builder: (c, snapshot) {
+                                if (snapshot.hasData) {
+                                  var movies = snapshot.data;
+                                  var selectedGenres = genres
+                                      .where((e) => e.active)
+                                      .map((e) => e.id);
+                                  var filteredMovies = movies!.where((a) {
+                                    bool shouldAdd = false;
+                                    for (int i = 0;
+                                        i < a.genreIds.length;
+                                        i++) {
+                                      if (selectedGenres
+                                          .contains(a.genreIds[i])) {
+                                        shouldAdd = true;
+                                        break;
+                                      }
+                                    }
+                                    return shouldAdd;
+                                  }).toList();
+                                  return SingleChildScrollView(
+                                      child: ListView.separated(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) =>
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Get.to(DetailsScreen(
+                                                      movie: filteredMovies[
+                                                          index]));
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  10),
+                                                        ),
+                                                        image: DecorationImage(
+                                                          image: NetworkImage(
+                                                            'https://image.tmdb.org/t/p/w500/${filteredMovies[index].posterPath}',
+                                                          ),
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Container(
+                                                              margin: const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  20,
+                                                                  10,
+                                                                  10,
+                                                                  10),
+                                                              child: ClipOval(
+                                                                  child:
+                                                                      Container(
+                                                                height: 40,
+                                                                width: 40,
+                                                                decoration:
+                                                                    const BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                          0.5),
+                                                                ),
+                                                                child:
+                                                                    IconButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Get.put(MoviesController())
+                                                                        .addToWatchList(
+                                                                            filteredMovies[index]);
+                                                                  },
+                                                                  icon: Obx(
+                                                                    () => Get.put(MoviesController())
+                                                                            .isInWatchList(filteredMovies[index])
+                                                                        ? const Icon(
+                                                                            Icons.bookmark,
+                                                                            color:
+                                                                                Colors.red,
+                                                                          )
+                                                                        : const Icon(
+                                                                            Icons.bookmark_outline,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                  ),
+                                                                ),
+                                                              )),
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          20,
+                                                          7,
+                                                          20,
+                                                          5), // left top right bottom,
+                                                      height: 55,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Color.fromRGBO(
+                                                            64,
+                                                            61,
+                                                            70,
+                                                            1), // 64, 61, 70, 1
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  10),
+                                                        ),
+                                                      ),
+                                                      child: Row(children: <
+                                                          Widget>[
+                                                        Expanded(
+                                                            child: Container(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                filteredMovies[
+                                                                        index]
+                                                                    .title,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                                maxLines:
+                                                                    1, //Textstyle
+                                                              ),
+                                                              Text(
+                                                                filteredMovies[
+                                                                        index]
+                                                                    .releaseDate,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                ), //Textstyle
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                        Expanded(
+                                                            child: Container(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .end,
+                                                            children: [
+                                                              Text(
+                                                                'from 39',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ), //Textstyle
+                                                              ),
+                                                              Text(
+                                                                Utils.getGenres(
+                                                                    filteredMovies[
+                                                                        index]),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ), //Textstyle
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                      ]),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                          separatorBuilder: (_, __) =>
+                                              const SizedBox(height: 20),
+                                          itemCount: filteredMovies.length));
+                                } else {
+                                  return Container(
+                                    child: Text(
+                                      '0 matching result',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  );
+                                }
+                              }),
+                        ],
                       )
                     ],
                   ),
@@ -395,5 +675,35 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ],
             )));
+  }
+}
+
+class Chip extends StatelessWidget {
+  final String title;
+  final bool active;
+  final Function() onTap;
+
+  const Chip(
+      {Key? key,
+      required this.title,
+      required this.active,
+      required this.onTap})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(999.0),
+            color: active ? Colors.white : Color.fromRGBO(71, 71, 90, 1),
+          ),
+          child: Text(title,
+              style: TextStyle(
+                fontSize: 14,
+                color: active ? Colors.black : Colors.grey,
+              ))),
+    );
   }
 }
