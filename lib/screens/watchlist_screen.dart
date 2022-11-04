@@ -242,10 +242,11 @@ class LocaleState extends State<Watchlist> {
                               height: 200,
                             ),
                             Text(
-                              'No movies in your watch list',
+                              'Create a custom list of movies.\nJust tap bookmark to add ot to your list',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w200,
+                                color: Colors.white
                               ),
                             ),
                           ],

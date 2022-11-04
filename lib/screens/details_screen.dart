@@ -65,7 +65,7 @@ class DetailsScreen extends StatelessWidget {
                 SafeArea(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 20, top: 10, right: 20),
+                    const EdgeInsets.only(left: 20, top: 10, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -84,31 +84,31 @@ class DetailsScreen extends StatelessWidget {
                               ),
                               child: ClipOval(
                                   child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: IconButton(
-                                  onPressed: () {
-                                    Get.put(MoviesController())
-                                        .addToWatchList(movie);
-                                  },
-                                  icon: Obx(
-                                    () => Get.put(MoviesController())
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Get.put(MoviesController())
+                                            .addToWatchList(movie);
+                                      },
+                                      icon: Obx(
+                                            () => Get.put(MoviesController())
                                             .isInWatchList(movie)
-                                        ? const Icon(
-                                            Icons.bookmark,
-                                            color: Colors.red,
-                                          )
-                                        : const Icon(
-                                            Icons.bookmark_outline,
-                                            color: Colors.black,
-                                          ),
-                                  ),
-                                ),
-                              )),
+                                            ? const Icon(
+                                          Icons.bookmark,
+                                          color: Colors.red,
+                                        )
+                                            : const Icon(
+                                          Icons.bookmark_outline,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
                             ),
                             SizedBox(
                               width: 10,
@@ -285,7 +285,7 @@ class DetailsScreen extends StatelessWidget {
                                             ),
                                           ),
                                           subtitle:
-                                              Text(Utils.getGenres(movie)),
+                                          Text(Utils.getGenres(movie)),
                                         )
                                       ],
                                     ),
@@ -345,7 +345,7 @@ class DetailsScreen extends StatelessWidget {
                       minimumSize: Size(250, 50),
                       backgroundColor: Colors.redAccent,
                       textStyle:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 )
               ],
             ),
@@ -373,13 +373,13 @@ class CreateIcons extends StatelessWidget {
       ),
       child: ClipOval(
           child: Container(
-        padding: const EdgeInsets.all(7),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        child: InkWell(onTap: onTap, child: child),
-      )),
+            padding: const EdgeInsets.all(7),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+            child: InkWell(onTap: onTap, child: child),
+          )),
     );
   }
 }

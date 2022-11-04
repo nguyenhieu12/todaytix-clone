@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 import 'login_screen.dart';
 
@@ -49,7 +50,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         children: [
                           Container(
                             child: Padding(
-                              padding: EdgeInsets.only(left: 15),
+                              padding: const EdgeInsets.only(left: 15),
                               child: Row(
                                 children: const [
                                 ],
@@ -79,77 +80,78 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 140,
+            height: MediaQuery.of(context).size.height * 0.4,
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             decoration: const BoxDecoration(
                 color: Colors.white
             ),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
+                Container(
+                  height: 50,
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () async {},
                     style: OutlinedButton.styleFrom(
                       shape: const StadiumBorder(),
-                      backgroundColor: const Color.fromARGB(100, 192, 192, 192),
+                      backgroundColor: const Color.fromARGB(40, 192, 192, 192),
                     ),
                     child: Row(
                       children: [
-                        Image.asset(
-                          'assets/google_logo.png',
-                          width: 28,
-                          height: 28,
-                        ),
-                        const SizedBox(width: 45),
-                        const Text(
-                          'Continue with Google',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      backgroundColor: const Color.fromARGB(100, 192, 192, 192),
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/email_logo.png',
-                          width: 35,
-                          height: 35,
-                        ),
+                        Logo(Logos.google, size: 25),
                         const SizedBox(width: 40),
-                        const Text(
-                          'Continue with email',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black
+                        const Center(
+                          child: Text(
+                            'Sign up with Google',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
                         )
                       ],
                     ),
                   ),
                 ),
+                const SizedBox(height: 20),
+                Container(
+                  height: 50,
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      backgroundColor: const Color.fromARGB(40, 192, 192, 192),
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.email_outlined, size: 26, color: Colors.black),
+                        SizedBox(width: 40),
+                        Center(
+                          child: Text(
+                            'Sign up with Email',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const Text('By continuing past this screen you confirm',
+                  style: TextStyle(
+                      fontSize: 15
+                  ),
+                  maxLines: 1
+                ),
+                const Text('Terms of Use & Privacy Policy',
+                  style: TextStyle(
+                      fontSize: 16
+                  ),
+                )
               ],
-            ),
-          ),
-          const Text(' By continuing past this screen you confirm that you',
-            style: TextStyle(
-                fontSize: 15
-            ),
-          ),
-          const Text(' agree to our Terms of Use & Privacy Policy',
-            style: TextStyle(
-                fontSize: 15
             ),
           ),
         ],

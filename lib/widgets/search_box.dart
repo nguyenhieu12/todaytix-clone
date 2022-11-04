@@ -13,6 +13,7 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      key: Key('search_bar'),
       controller: Get.put(SearchController()).searchController,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
@@ -29,7 +30,7 @@ class SearchBox extends StatelessWidget {
             color: Colors.white,
           ),
           hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
-          hintText: "Search for shows in New York"),
+          hintText: "Search for movies"),
       onSubmitted: (a) => onSumbit(),
     );
   }

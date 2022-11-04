@@ -225,6 +225,7 @@ class _SearchScreenState extends State<SearchScreen>
                                                                     FontWeight
                                                                         .w200,
                                                               ),
+                                                              maxLines: 1,
                                                             ),
                                                           ],
                                                         ),

@@ -51,6 +51,8 @@ dependencies:
   fade_shimmer: ^2.0.1
   url_launcher: ^6.1.6
   flutter_native_splash: ^2.2.11
+  line_icons: ^2.0.1
+  icons_plus: ^3.0.0
 
 dev_dependencies:
   lint: ^1.0.0

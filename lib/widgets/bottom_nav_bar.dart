@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +19,8 @@ class BottomNavBar extends StatefulWidget {
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar>
-    with TickerProviderStateMixin {
+class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMixin {
+
   Widget build(BuildContext context) {
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
@@ -66,6 +68,7 @@ class _BottomNavBarState extends State<BottomNavBar>
             },
           ),
           IconButton(
+            key: Key('search_button'),
             icon: Icon(
               CupertinoIcons.search,
               color: widget.index == 1 ? Colors.red : Colors.grey,
@@ -119,115 +122,143 @@ class _BottomNavBarState extends State<BottomNavBar>
 
   void showAccount(double height) {
     showDialog<String>(
-      barrierColor: Colors.grey.shade100,
+      barrierColor: Colors.white54,
       context: context,
-      builder: (BuildContext context) => Container(
-          padding: EdgeInsets.only(top: height),
-          child: SimpleDialog(
-            children: [
-              ListTile(
-                  leading: Image.asset(
-                    'assets/icons/login.png',
-                    width: 30,
-                    height: 30,
-                  ),
-                  title: const Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  onTap: () {
-                    bottomSheetLoginSignup(0);
-                  }),
-              ListTile(
-                leading: Image.asset(
-                  'assets/icons/signup.png',
-                  width: 30,
-                  height: 30,
-                ),
-                title: const Text(
-                  'Sign up',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () => bottomSheetLoginSignup(1),
-              ),
-              ListTile(
-                leading: Image.asset(
-                  'assets/icons/setting.png',
-                  width: 30,
-                  height: 30,
-                ),
-                title: const Text(
-                  'Setting',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Watchlist())),
-              ),
-              ListTile(
-                leading: Image.asset(
-                  'assets/icons/question_mark.png',
-                  width: 30,
-                  height: 30,
-                ),
-                title: const Text(
-                  'Q&A Support',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () => _launchURL(),
-              ),
-            ],
-          )),
-    );
-  }
-
-  void showAccountAfterLogin(double height) {
-    String? profileImage =
-        FirebaseAuth.instance.currentUser?.photoURL.toString();
-    showDialog<String>(
-      barrierColor: Colors.grey.shade100,
-      context: context,
-      builder: (BuildContext context) => Container(
-          padding: EdgeInsets.only(top: height),
-          child: ConstrainedBox(
-            constraints:
-                BoxConstraints(minWidth: MediaQuery.of(context).size.width),
-            child: Column(
+      builder: (BuildContext context) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+        child: Container(
+            padding: EdgeInsets.only(top: height),
+            child: SimpleDialog(
+              insetPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              titlePadding: EdgeInsets.zero,
+              contentPadding: EdgeInsets.zero,
               children: [
-                FirebaseAuth.instance.currentUser?.photoURL != null
-                    ? Image.network(profileImage!, height: 100, width: 100)
-                    : Icon(Icons.account_circle, size: 100),
-                SimpleDialog(
-                  children: [
-                    ListTile(
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: Column(
+                    children: [
+                      ListTile(
+                          leading: Image.asset(
+                            'assets/icons/login.png',
+                            width: 30,
+                            height: 30,
+                          ),
+                          title: const Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          onTap: () {
+                            bottomSheetLoginSignup(0);
+                          }),
+                      ListTile(
                         leading: Image.asset(
-                          'assets/icons/login.png',
+                          'assets/icons/signup.png',
                           width: 30,
                           height: 30,
                         ),
                         title: const Text(
-                          'Log out',
+                          'Sign up',
                           style: TextStyle(
                             fontSize: 16,
                           ),
                         ),
-                        onTap: () {
-                          GoogleService.logOut();
-                          Navigator.of(context, rootNavigator: true)
-                              .pop('dialog');
-                        }),
-                  ],
-                ),
+                        onTap: () => bottomSheetLoginSignup(1),
+                      ),
+                      ListTile(
+                        leading: Image.asset(
+                          'assets/icons/setting.png',
+                          width: 30,
+                          height: 30,
+                        ),
+                        title: const Text(
+                          'Setting',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => const Watchlist())),
+                      ),
+                      ListTile(
+                        leading: Image.asset(
+                          'assets/icons/question_mark.png',
+                          width: 30,
+                          height: 30,
+                        ),
+                        title: const Text(
+                          'Q&A Support',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        onTap: () async {
+                          var url = "https://support.todaytix.com/support/home";
+                          if(await canLaunchUrlString(url)) {
+                            await launchUrlString(url);
+                          }
+                        }
+                      ),
+                    ],
+                  ),
+                )
               ],
-            ),
-          )),
+            )
+        ),
+      )
+    );
+  }
+
+  void showAccountAfterLogin(double height) {
+      String? profileImage =
+          FirebaseAuth.instance.currentUser?.photoURL.toString();
+      showDialog<String>(
+      barrierColor: Colors.white54,
+      context: context,
+        builder: (BuildContext context) => BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+          child: Container(
+              padding: EdgeInsets.only(top: height),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(
+                        FirebaseAuth.instance.currentUser?.photoURL != null ? '$profileImage' : '',
+                    ),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  SizedBox(height: 20),
+                  SimpleDialog(
+                    insetPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    titlePadding: EdgeInsets.zero,
+                    contentPadding: EdgeInsets.zero,
+                    children: [
+                      ListTile(
+                        leading: Image.asset(
+                          'assets/icons/question_mark.png',
+                          width: 30,
+                          height: 30,
+                        ),
+                        title: const Text(
+                          'Q&A Support',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        onTap: () => {
+                          GoogleService.logOut(),
+                          Navigator.of(context, rootNavigator: true)
+                          .pop('dialog')
+                        }
+                      ),
+                    ],
+                  ),
+                ],
+              )
+          ),
+        )
     );
   }
 

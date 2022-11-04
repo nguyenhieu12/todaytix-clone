@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:icons_plus/icons_plus.dart';
 import '../main.dart';
 import '../services/google_service.dart';
 /*
@@ -78,16 +79,17 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.4,
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             decoration: const BoxDecoration(
                 color: Colors.white
             ),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
+                Container(
+                  height: 50,
                   child: OutlinedButton(
-                    onPressed: () {
-                      GoogleService.logInWithGoogle();
+                    onPressed: () async {
+                      await GoogleService.logInWithGoogle();
                       if(FirebaseAuth.instance.currentUser != null) {
                         Navigator.of(context, rootNavigator: true).pop('dialog');
                         Navigator.pop(context);
@@ -95,81 +97,77 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     style: OutlinedButton.styleFrom(
                       shape: const StadiumBorder(),
-                      backgroundColor: const Color.fromARGB(100, 192, 192, 192),
+                      backgroundColor: const Color.fromARGB(40, 192, 192, 192),
                     ),
                     child: Row(
                       children: [
-                        Image.asset(
-                          'assets/google_logo.png',
-                          width: 28,
-                          height: 28,
-                        ),
-                        const SizedBox(width: 45),
-                        const Text(
-                          'Continue with Google',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      backgroundColor: const Color.fromARGB(100, 192, 192, 192),
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/email_logo.png',
-                          width: 35,
-                          height: 35,
-                        ),
+                        Logo(Logos.google, size: 25),
                         const SizedBox(width: 40),
-                        const Text(
-                          'Continue with email',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black
+                        Center(
+                          child: const Text(
+                            'Continue with Google',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
                         )
                       ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
+                SizedBox(height: 20),
+                Container(
+                  height: 50,
                   child: OutlinedButton(
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
                       shape: const StadiumBorder(),
-                      backgroundColor: const Color.fromARGB(100, 192, 192, 192),
+                      backgroundColor: const Color.fromARGB(40, 192, 192, 192),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 6),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/facebook_logo.png',
-                            width: 28,
-                            height: 28,
+                    child: Row(
+                      children: [
+                        Icon(Icons.email_outlined, size: 26, color: Colors.black),
+                        const SizedBox(width: 40),
+                        Center(
+                          child: const Text(
+                            'Continue with Email',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
-                          const SizedBox(width: 40),
-                          const Text(
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  height: 50,
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      backgroundColor: const Color.fromARGB(40, 192, 192, 192),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.facebook, size: 28, color: CupertinoColors.systemBlue),
+                        const SizedBox(width: 40),
+                        Center(
+                          child: const Text(
                             'Continue with Facebook',
                             style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 )
