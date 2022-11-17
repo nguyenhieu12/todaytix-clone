@@ -42,10 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         end: Alignment.bottomCenter,
                         stops: [
                           0,
-                          0.4
+                          0.7
                         ],
                         colors: [
-                          Color.fromARGB(100, 197, 0, 35),
+                          Colors.pink,
                           Colors.red
                         ]
                     )
@@ -91,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       await GoogleService.logInWithGoogle();
                       if(FirebaseAuth.instance.currentUser != null) {
+                        print('Logged in');
                         Navigator.of(context, rootNavigator: true).pop('dialog');
                         Navigator.pop(context);
                       }

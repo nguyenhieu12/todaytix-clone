@@ -1,5 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'login_screen.dart';
 
@@ -35,10 +39,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         end: Alignment.bottomCenter,
                         stops: [
                           0,
-                          0.4
+                          0.7
                         ],
                         colors: [
-                          Color.fromARGB(100, 197, 0, 35),
+                          Colors.pink,
                           Colors.red
                         ]
                     )
@@ -146,10 +150,26 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   maxLines: 1
                 ),
-                const Text('Terms of Use & Privacy Policy',
-                  style: TextStyle(
-                      fontSize: 16
-                  ),
+                Row(
+                  children: [
+                    RichText(
+                        text: TextSpan(
+                          text: '',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () async {
+                            var url = 'https://google.com';
+                            if(await canLaunchUrlString(url)) {
+                              launchUrlString(url);
+                            } else {
+                              throw('Cannot launch $url');
+                            }
+                          }
+                        )
+                    )
+                  ],
                 )
               ],
             ),
@@ -157,5 +177,13 @@ class _SignupScreenState extends State<SignupScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> launchURL(LinkableElement link ) async {
+    if(await canLaunchUrlString(link.url)) {
+      await launchUrlString(link.url);
+    } else {
+      throw('Cannot launch $link');
+    }
   }
 }

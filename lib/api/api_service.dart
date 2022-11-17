@@ -26,7 +26,7 @@ class ApiService {
     List<Movie> movies = [];
     try {
       http.Response response = await http.get(Uri.parse(
-          '${Api.baseUrl}movie/upcoming?api_key=${Api.apiKey}&language=en-US&page=1'));
+          '${Api.baseUrl}movie/upcoming?api_key=${Api.apiKey}&language=en-US'));
       var res = jsonDecode(response.body);
       res['results'].take(6).forEach(
             (m) => movies.add(
@@ -43,7 +43,7 @@ class ApiService {
     List<Movie> movies = [];
     try {
       http.Response response = await http.get(Uri.parse(
-          'https://api.themoviedb.org/3/search/movie?api_key=40797ff2c89935778fc86188943b775a&language=en-US&query=$query&page=1&include_adult=false'));
+          'https://api.themoviedb.org/3/search/movie?api_key=40797ff2c89935778fc86188943b775a&language=en-US&query=$query&include_adult=false'));
       var res = jsonDecode(response.body);
       res['results'].forEach(
         (m) => movies.add(
@@ -60,7 +60,7 @@ class ApiService {
     List<Review> reviews = [];
     try {
       http.Response response = await http.get(Uri.parse(
-          'https://api.themoviedb.org/3/movie/$movieId/reviews?api_key=${Api.apiKey}&language=en-US&page=1'));
+          'https://api.themoviedb.org/3/movie/$movieId/reviews?api_key=${Api.apiKey}&language=en-US'));
       var res = jsonDecode(response.body);
       res['results'].forEach(
         (r) {

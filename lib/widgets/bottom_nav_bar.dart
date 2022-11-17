@@ -100,6 +100,7 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
             },
           ),
           IconButton(
+            key: Key('account_button'),
             icon: Icon(
               CupertinoIcons.person,
               color: Colors.grey,
@@ -129,7 +130,7 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
         child: Container(
             padding: EdgeInsets.only(top: height),
             child: SimpleDialog(
-              insetPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              insetPadding: EdgeInsets.fromLTRB(10, 0, 10, 10),
               titlePadding: EdgeInsets.zero,
               contentPadding: EdgeInsets.zero,
               children: [
@@ -159,12 +160,27 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
                           height: 30,
                         ),
                         title: const Text(
-                          'Sign up',
+                          'Sign Up',
                           style: TextStyle(
                             fontSize: 16,
                           ),
                         ),
                         onTap: () => bottomSheetLoginSignup(1),
+                      ),
+                      ListTile(
+                        leading: Image.asset(
+                          'assets/icons/watchlist.png',
+                          width: 30,
+                          height: 30,
+                        ),
+                        title: const Text(
+                          'Watchlist',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => const Watchlist())),
                       ),
                       ListTile(
                         leading: Image.asset(
@@ -178,8 +194,7 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
                             fontSize: 16,
                           ),
                         ),
-                        onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => const Watchlist())),
+                        onTap: () => {},
                       ),
                       ListTile(
                         leading: Image.asset(
@@ -237,12 +252,12 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
                     children: [
                       ListTile(
                         leading: Image.asset(
-                          'assets/icons/question_mark.png',
+                          'assets/icons/logout.png',
                           width: 30,
                           height: 30,
                         ),
                         title: const Text(
-                          'Q&A Support',
+                          'Log Out',
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -260,14 +275,6 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
           ),
         )
     );
-  }
-
-  _launchURL() async {
-    const url = "https://flutter.io";
-    if (await canLaunchUrlString(url))
-      await launchUrlString(url);
-    else
-      throw "Could not launch $url";
   }
 
   void bottomSheetLoginSignup(int screen) {
@@ -298,6 +305,7 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 35, 0, 0),
                   child: IconButton(
+                    key: Key('clear_icon'),
                     onPressed: () {
                       Navigator.pop(context);
                     },
