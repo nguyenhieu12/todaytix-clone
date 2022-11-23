@@ -54,8 +54,7 @@ Tuần 8: Monkey test
 Tuần 10: Các màn hình đã hoàn thiện (tương tác được).
 
 
-![mobile_week10](https://user-images.githubusercontent.com/78216372/202423935-06b9e71b-4b03-482a-9833-8180e67e825a.gif)
-
+https://user-images.githubusercontent.com/78216372/203542850-a34d8f9b-6c52-47a9-b00b-8c50c025874f.mp4
 
 
 
