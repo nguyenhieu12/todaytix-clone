@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../screens/home_screen.dart';
@@ -209,9 +210,11 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
                           ),
                         ),
                         onTap: () async {
-                          var url = "https://support.todaytix.com/support/home";
-                          if(await canLaunchUrlString(url)) {
-                            await launchUrlString(url);
+                          final url = Uri.parse("https://support.todaytix.com/support/home");
+                          if(await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          } else {
+                            throw 'Could not launch $url';
                           }
                         }
                       ),

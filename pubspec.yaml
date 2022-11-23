@@ -40,10 +40,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_core: ^1.24.0
+  firebase_core: ^2.2.0
   google_sign_in: ^5.4.2
-  firebase_auth: ^3.11.1
-  flutter_facebook_auth: ^4.4.1+1
+  firebase_auth: ^4.1.2
+  flutter_facebook_auth: ^5.0.6
   xen_popup_card: ^0.0.1
   provider: ^6.0.3
   get: ^4.6.5
@@ -54,7 +54,7 @@ dependencies:
   line_icons: ^2.0.1
   icons_plus: ^3.0.0
   flutter_linkify: ^5.0.2
-  fake_cloud_firestore: ^1.3.2
+  fake_cloud_firestore: ^2.0.1
 
 dev_dependencies:
   lint: ^1.0.0
@@ -65,8 +65,8 @@ dev_dependencies:
 
   #flutter_native_splash: ^2.2.11
 
-#flutter_native_splash:
-#  color: "#f5cb42"
+  #flutter_native_splash:
+  #  color: "#f5cb42"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

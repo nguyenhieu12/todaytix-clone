@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -5,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../services/google_service.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -94,7 +96,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 Container(
                   height: 50,
                   child: OutlinedButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      await GoogleService.logInWithGoogle();
+                      if(FirebaseAuth.instance.currentUser != null) {
+                        print('Logged in');
+                        Navigator.of(context, rootNavigator: true).pop('dialog');
+                        Navigator.pop(context);
+                      }
+                    },
                     style: OutlinedButton.styleFrom(
                       shape: const StadiumBorder(),
                       backgroundColor: const Color.fromARGB(40, 192, 192, 192),
@@ -103,8 +112,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       children: [
                         Logo(Logos.google, size: 25),
                         const SizedBox(width: 40),
-                        const Center(
-                          child: Text(
+                        Center(
+                          child: const Text(
                             'Sign up with Google',
                             style: TextStyle(
                                 fontSize: 16,
@@ -144,29 +153,65 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                 ),
+                SizedBox(height: 15),
                 const Text('By continuing past this screen you confirm',
                   style: TextStyle(
-                      fontSize: 15
+                      fontSize: 16
                   ),
                   maxLines: 1
                 ),
                 Row(
                   children: [
+                    SizedBox(width: 45),
+                    Text('to our',
+                      style: TextStyle(
+                          fontSize: 16
+                      )
+                    ),
+                    SizedBox(width: 5),
                     RichText(
                         text: TextSpan(
-                          text: '',
+                          text: 'Terms of Use',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 16
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
                           ),
                           recognizer: TapGestureRecognizer()..onTap = () async {
-                            var url = 'https://google.com';
+                            var url = 'https://www.todaytix.com/us/terms';
                             if(await canLaunchUrlString(url)) {
                               launchUrlString(url);
                             } else {
                               throw('Cannot launch $url');
                             }
                           }
+                        )
+                    ),
+                    SizedBox(width: 5),
+                    Text('&',
+                        style: TextStyle(
+                            fontSize: 16
+                        )
+                    ),
+                    SizedBox(width: 5),
+                    RichText(
+                        text: TextSpan(
+                            text: 'Privacy Policy',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline
+                            ),
+                            recognizer: TapGestureRecognizer()..onTap = () async {
+                              var url = 'https://www.todaytix.com/us/privacy-policy';
+                              if(await canLaunchUrlString(url)) {
+                                launchUrlString(url);
+                              } else {
+                                throw('Cannot launch $url');
+                              }
+                            }
                         )
                     )
                   ],
