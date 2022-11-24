@@ -34,7 +34,9 @@ dependencies:
   flutter_signin_button: ^2.0.0
   auth_buttons: ^3.0.0
   carousel_slider: ^4.1.1
+  table_calendar: ^3.0.8
   readmore: ^2.1.0
+  photo_view:
 
 
   # The following adds the Cupertino Icons font to your application.

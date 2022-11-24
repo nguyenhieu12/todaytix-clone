@@ -11,6 +11,7 @@ import '../controllers/movies_controller.dart';
 import '../model/movie.dart';
 import '../model/review.dart';
 import '../model/utils.dart';
+import 'calendar_screen.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({
@@ -18,6 +19,24 @@ class DetailsScreen extends StatelessWidget {
     required this.movie,
   }) : super(key: key);
   final Movie movie;
+
+  @override
+  Route route() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => CalendarScreen(movie: movie),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+        final tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -336,7 +355,12 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      route(),
+                    );
+                  },
                   child: Text('Get tickets'),
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
