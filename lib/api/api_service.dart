@@ -2,7 +2,6 @@ import 'dart:convert';
 import '../api/api.dart';
 import '../model/movie.dart';
 import 'package:http/http.dart' as http;
-import '../model/review.dart';
 
 class ApiService {
   static Future<List<Movie>?> getUpcomingMovies() async {
@@ -51,28 +50,6 @@ class ApiService {
         ),
       );
       return movies;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  static Future<List<Review>?> getMovieReviews(int movieId) async {
-    List<Review> reviews = [];
-    try {
-      http.Response response = await http.get(Uri.parse(
-          'https://api.themoviedb.org/3/movie/$movieId/reviews?api_key=${Api.apiKey}&language=en-US'));
-      var res = jsonDecode(response.body);
-      res['results'].forEach(
-        (r) {
-          reviews.add(
-            Review(
-                author: r['author'],
-                comment: r['content'],
-                rating: r['author_details']['rating']),
-          );
-        },
-      );
-      return reviews;
     } catch (e) {
       return null;
     }
