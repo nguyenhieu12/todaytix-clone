@@ -41,9 +41,7 @@ class SeatSelector extends State<SeatScreen> {
                 fontSize: 20,
                 fontWeight: FontWeight.bold)),
       ),
-      body: PhotoView(
-            imageProvider: AssetImage("assets/seating.png"),
-          ),
+      body: Image.asset('assets/seating.png'),
       bottomSheet: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -51,7 +49,6 @@ class SeatSelector extends State<SeatScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
-
             children: <Widget>[
               IconButton(onPressed: removeTicket,
                   icon: const Icon(Icons.remove_circle_outline, color: Colors.blueGrey,),

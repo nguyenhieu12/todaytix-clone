@@ -23,20 +23,50 @@ class CalendarState extends State<CalendarScreen> {
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
+  DateTime _selectedDay = DateTime.now();
   var iniDate = DateTime.now();
+
+  String day = "";//DateTime.now().day.toString();
+  String month = DateTime.now().month.toString();
+  String year = DateTime.now().year.toString();
+  String time = "";
+
+  var firstListTime = [
+    "8:30 AM ",
+    "10:30 AM"
+  ];
+
+  var firstSelected = [
+    false,
+    false,
+  ];
+
+  var secondListTime = [
+    "3:30 PM ",
+    "8:30 PM "
+  ];
+
+  var secondSelected = [
+    false,
+    false
+  ];
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Route route() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          const SeatScreen(),
+      const SeatScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
         const curve = Curves.ease;
         final tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
@@ -60,119 +90,274 @@ class CalendarState extends State<CalendarScreen> {
                 fontSize: 20,
                 fontWeight: FontWeight.bold)),
       ),
-      body: TableCalendar(
-        firstDay: DateTime.utc(2022, 1, 1),
-        lastDay: DateTime.utc(2023, 12, 31),
-        focusedDay: DateTime.now(),
-        selectedDayPredicate: (day) {
-          return isSameDay(_selectedDay, day);
-        },
-        calendarStyle: CalendarStyle(
-            isTodayHighlighted: true,
-            selectedDecoration: BoxDecoration(
-              color: Colors.blueGrey,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(width: 1.5, color: Colors.black),
-            )),
-        calendarFormat: _calendarFormat,
-        onDaySelected: (selectedDay, focusedDay) {
-          setState(
-            () {
-              _selectedDay = selectedDay;
-              _focusedDay = focusedDay;
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 280, top: 20),
+            child: Text('Select date',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
+                )
+            ),
+          ),
+          TableCalendar(
+            rowHeight: 50,
+            firstDay: DateTime.now(),
+            lastDay: DateTime.utc(2023, 12, 31),
+            focusedDay: _selectedDay,
+            selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
             },
-          );
-        },
-        onFormatChanged: (format) {
-          setState(() {
-            _calendarFormat = format;
-          });
-        },
-      ),
-      bottomSheet: Container(
-        height: 300,
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.keyboard_return, color: Colors.grey)),
-              const Text('Pick Showtime',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
-              const Divider(
-                indent: 20,
-                endIndent: 20,
-                height: 20,
-                thickness: 1,
-                color: Colors.grey,
-              ),
-              InkWell(
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('19:30',
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.black)),
-                              Text('Cyber Sale',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold)),
-                            ]),
-                      ),
-                      Expanded(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: const [
-                              Text('From \$39 ea',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold)),
-                              Text('Save 35%',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold)),
-                            ]),
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    route(),
-                  );
+            calendarFormat: _calendarFormat,
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                  _selectedDay = selectedDay;
+                  _focusedDay = focusedDay;
+                  day =_selectedDay!.day.toString();
+                  month = _selectedDay!.month.toString();
+                  year = _selectedDay!.year.toString();
                 },
+              );
+            },
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(right: 280),
+            child: Text('Select time',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              )
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              SizedBox(width: 40),
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        for(int i = 0;i < firstSelected.length;i++) {
+                          firstSelected[i] = false;
+                          secondSelected[i] = false;
+                        }
+                        firstSelected[0] = true;
+                        time = firstListTime[0];
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: firstSelected[0] ? Colors.greenAccent.shade700 : Colors.blue,
+                        shape: const StadiumBorder(),
+                        maximumSize: Size.fromWidth(140)
+                    ),
+                    child: Center(
+                      child: Text(firstListTime[0],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        for(int i = 0;i < firstSelected.length;i++) {
+                          firstSelected[i] = false;
+                          secondSelected[i] = false;
+                        }
+                        firstSelected[1] = true;
+                        time = firstListTime[1];
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: firstSelected[1] ? Colors.greenAccent.shade700 : Colors.blue,
+                        shape: const StadiumBorder(),
+                        maximumSize: Size.fromWidth(140)
+                    ),
+                    child: Center(
+                      child: Text(firstListTime[1],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-              const Divider(
-                indent: 20,
-                endIndent: 20,
-                height: 20,
-                thickness: 1,
-                color: Colors.grey,
+              SizedBox(width: 35),
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        for(int i = 0;i < secondSelected.length;i++) {
+                          secondSelected[i] = false;
+                          firstSelected[i] = false;
+                        }
+                        secondSelected[0] = true;
+                        time = secondListTime[0];
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: secondSelected[0] ? Colors.greenAccent.shade700 : Colors.blue,
+                        shape: const StadiumBorder(),
+                        maximumSize: Size.fromWidth(140)
+                    ),
+                    child: Center(
+                      child: Text(secondListTime[0],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        for(int i = 0;i < secondSelected.length;i++) {
+                          secondSelected[i] = false;
+                          firstSelected[i] = false;
+                        }
+                        secondSelected[1] = true;
+                        time = secondListTime[1];
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: secondSelected[1] ? Colors.greenAccent.shade700 : Colors.blue,
+                        shape: const StadiumBorder(),
+                        maximumSize: Size.fromWidth(140)
+                    ),
+                    child: Center(
+                      child: Text(secondListTime[1],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ],
           ),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              SizedBox(width: 60),
+              Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.blue
+                ),
+                width: 20,
+                height: 20,
+              ),
+              SizedBox(width: 10),
+              Text('Available',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17
+                ),
+              ),
+              SizedBox(width: 40),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.greenAccent.shade700
+                ),
+                width: 20,
+                height: 20,
+              ),
+              SizedBox(width: 10),
+              Text('Your selection',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 30),
+          Divider(
+              height: 20,
+              thickness: 1,
+              color: Colors.grey
+          ),
+        ],
+      ),
+      bottomSheet: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 55,
+        color: Colors.white,
+        child: Stack(
+          children: [
+            // SizedBox(width: 80),
+            Padding(
+              padding: const EdgeInsets.only(left: 100, top: 15),
+              child: Text(day == "" ? '' : (time == "" ? '$day/$month/$year' : '$day/$month/$year - $time'),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 340, top: 5),
+              child: TextButton(
+                onPressed: () {
+                  if(time == "" || day == "") {
+                    showDialog(
+                        context: context,
+                        builder: (_) => CupertinoAlertDialog(
+                          title: Text('You must select date and time!'),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: Text('Ok'),
+                              onPressed: () => Navigator.pop(context),
+                            )
+                          ],
+                        )
+                    );
+                  } else {
+                    Navigator.push(context, route());
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent
+                ),
+                child: Image.asset('assets/right_blue_arrow.png',
+                  width: 27,
+                  height: 27
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
   }
+}
+
+class Time {
+  String time;
+  bool isSelected;
+
+  Time({
+    required this.time,
+    required this.isSelected
+  });
 }

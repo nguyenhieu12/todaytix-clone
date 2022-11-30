@@ -22,14 +22,12 @@ class DetailsScreen extends StatelessWidget {
   @override
   Route route() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          CalendarScreen(movie: movie),
+      pageBuilder: (context, animation, secondaryAnimation) => CalendarScreen(movie: movie),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
         const curve = Curves.ease;
-        final tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
@@ -84,7 +82,7 @@ class DetailsScreen extends StatelessWidget {
                 SafeArea(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 20, top: 10, right: 20),
+                    const EdgeInsets.only(left: 20, top: 10, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -103,31 +101,31 @@ class DetailsScreen extends StatelessWidget {
                               ),
                               child: ClipOval(
                                   child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: IconButton(
-                                  onPressed: () {
-                                    Get.put(MoviesController())
-                                        .addToWatchList(movie);
-                                  },
-                                  icon: Obx(
-                                    () => Get.put(MoviesController())
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Get.put(MoviesController())
+                                            .addToWatchList(movie);
+                                      },
+                                      icon: Obx(
+                                            () => Get.put(MoviesController())
                                             .isInWatchList(movie)
-                                        ? const Icon(
-                                            Icons.bookmark,
-                                            color: Colors.red,
-                                          )
-                                        : const Icon(
-                                            Icons.bookmark_outline,
-                                            color: Colors.black,
-                                          ),
-                                  ),
-                                ),
-                              )),
+                                            ? const Icon(
+                                          Icons.bookmark,
+                                          color: Colors.red,
+                                        )
+                                            : const Icon(
+                                          Icons.bookmark_outline,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
                             ),
                             SizedBox(
                               width: 10,
@@ -304,85 +302,14 @@ class DetailsScreen extends StatelessWidget {
                                             ),
                                           ),
                                           subtitle:
-                                              Text(Utils.getGenres(movie)),
+                                          Text(Utils.getGenres(movie)),
                                         )
                                       ],
                                     ),
                                   )
                                 ],
                               )),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Cast',
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
-                              SizedBox(height: 10),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      ListView.separated(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        // shrinkWrap: true,
-                                        itemCount: 6,
-                                        itemBuilder: (context, index) =>
-                                            GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
-                                                  width: mWidth / 4,
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      CircleAvatar(
-                                                        backgroundImage:
-                                                            NetworkImage(
-                                                                '$Api.imageBaseUrl${movie.cast[index].profileURL}'),
-                                                        radius: 40,
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      Text(
-                                                        '${movie.cast[index].name}',
-                                                        maxLines: 2,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        overflow:
-                                                            TextOverflow.clip,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyText2,
-                                                      ),
-                                                      SizedBox(height: 8),
-                                                      Text(
-                                                        '${movie.cast[index].character}',
-                                                        maxLines: 2,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        overflow:
-                                                            TextOverflow.clip,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .caption,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )),
-                                        separatorBuilder: (_, __) =>
-                                            const SizedBox(height: 20),
-                                      ),
-                                    ]),
-                              ),
-                            ],
-                          ),
+                          Container()
                         ]),
                       ),
                     ],
@@ -439,8 +366,7 @@ class DetailsScreen extends StatelessWidget {
                       ),
                       minimumSize: Size(250, 50),
                       backgroundColor: Colors.redAccent,
-                      textStyle:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 )
               ],
             ),
@@ -468,13 +394,13 @@ class CreateIcons extends StatelessWidget {
       ),
       child: ClipOval(
           child: Container(
-        padding: const EdgeInsets.all(7),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        child: InkWell(onTap: onTap, child: child),
-      )),
+            padding: const EdgeInsets.all(7),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+            child: InkWell(onTap: onTap, child: child),
+          )),
     );
   }
 }

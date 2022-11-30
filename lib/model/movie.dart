@@ -11,7 +11,7 @@ class Movie {
   String releaseDate;
   double voteAverage;
   List<int> genreIds;
-  List<Cast> cast;
+  // List<Cast> cast;
   Movie({
     required this.id,
     required this.title,
@@ -21,7 +21,7 @@ class Movie {
     required this.releaseDate,
     required this.voteAverage,
     required this.genreIds,
-    required this.cast,
+    // required this.cast,
   });
 
   factory Movie.fromMap(Map<String, dynamic> map) {
@@ -34,7 +34,8 @@ class Movie {
         releaseDate: map['release_date'] ?? '',
         voteAverage: map['vote_average']?.toDouble() ?? 0.0,
         genreIds: List<int>.from(map['genre_ids']),
-        cast: List<Cast>.from(map['credits']['cast']));
+        // cast: List<Cast>.from(map['credits']['cast'])
+    );
   }
 
   factory Movie.fromJson(String source) => Movie.fromMap(json.decode(source));

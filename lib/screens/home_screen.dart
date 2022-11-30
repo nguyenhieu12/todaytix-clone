@@ -3,6 +3,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_project/screens/watchlist_screen.dart';
 import 'package:flutter_project/services/google_service.dart';
 import 'package:flutter_project/widgets/bottom_nav_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -467,9 +468,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           itemCount: filteredMovies.length));
                                 } else {
                                   return Container(
-                                    child: Text(
-                                      '0 matching result',
-                                      style: TextStyle(color: Colors.white),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 100),
+                                      child: Center(
+                                        child: SpinKitRing(
+                                          size: 40,
+                                          lineWidth: 4.0,
+                                          color: Colors.red,
+                                        ),
+                                      ),
                                     ),
                                   );
                                 }

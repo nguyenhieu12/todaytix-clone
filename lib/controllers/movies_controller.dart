@@ -27,13 +27,14 @@ class MoviesController extends GetxController {
       watchListMovies.add(movie);
       Get.snackbar('Success', 'Added to Watchlist',
           snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
           icon: Icon(
             CupertinoIcons.bookmark_fill,
             color: Colors.white,
           ),
           backgroundColor: Colors.red,
-          animationDuration: const Duration(milliseconds: 500),
-          duration: const Duration(milliseconds: 500));
+          animationDuration: const Duration(milliseconds: 700),
+          duration: const Duration(milliseconds: 700));
     }
   }
 }

@@ -4,19 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import '../main.dart';
 import '../services/google_service.dart';
-/*
-import 'package:flutter_project/services/google_service.dart';
-*/
 
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key});
 
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -172,7 +165,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 )
-
               ],
             ),
           )
@@ -181,10 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  static void loginAndHideDialog() {
-    GoogleService.logInWithGoogle();
-
-  }
+  // static void loginAndHideDialog() {
+  //   GoogleService.logInWithGoogle();
+  // }
 }
 
 class LoginScreenClipPath extends CustomClipper<Path> {

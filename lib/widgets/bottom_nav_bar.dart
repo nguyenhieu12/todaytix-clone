@@ -342,13 +342,17 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
                             child: Text('Sign up',
                                 style: TextStyle(
                                   fontSize: 15,
-                                )),
+                                )
+                            ),
                           )
                         ],
-                      )),
+                      )
+                  ),
                 ),
               ],
-            )));
+            )
+        )
+    );
   }
 }
 
