@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/model/cast.dart';
+import 'package:flutter_project/widgets/star_icon_display.dart';
+import 'package:flutter_project/widgets/tab_builder.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 import '../api/api.dart';
@@ -22,12 +25,14 @@ class DetailsScreen extends StatelessWidget {
   @override
   Route route() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => CalendarScreen(movie: movie),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          CalendarScreen(movie: movie),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
         const curve = Curves.ease;
-        final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        final tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
@@ -82,7 +87,7 @@ class DetailsScreen extends StatelessWidget {
                 SafeArea(
                   child: Padding(
                     padding:
-                    const EdgeInsets.only(left: 20, top: 10, right: 20),
+                        const EdgeInsets.only(left: 20, top: 10, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -101,31 +106,31 @@ class DetailsScreen extends StatelessWidget {
                               ),
                               child: ClipOval(
                                   child: Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
-                                    ),
-                                    child: IconButton(
-                                      onPressed: () {
-                                        Get.put(MoviesController())
-                                            .addToWatchList(movie);
-                                      },
-                                      icon: Obx(
-                                            () => Get.put(MoviesController())
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+                                    Get.put(MoviesController())
+                                        .addToWatchList(movie);
+                                  },
+                                  icon: Obx(
+                                    () => Get.put(MoviesController())
                                             .isInWatchList(movie)
-                                            ? const Icon(
-                                          Icons.bookmark,
-                                          color: Colors.red,
-                                        )
-                                            : const Icon(
-                                          Icons.bookmark_outline,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  )),
+                                        ? const Icon(
+                                            Icons.bookmark,
+                                            color: Colors.red,
+                                          )
+                                        : const Icon(
+                                            Icons.bookmark_outline,
+                                            color: Colors.black,
+                                          ),
+                                  ),
+                                ),
+                              )),
                             ),
                             SizedBox(
                               width: 10,
@@ -194,15 +199,60 @@ class DetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.redAccent,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              height: 18,
+                              child: Text(
+                                "  Upcoming  ",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
                             Text(
-                              movie.title,
+                              movie.title +
+                                  " (" +
+                                  movie.releaseDate.split('-')[0] +
+                                  ')',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(height: 10),
-                            const SizedBox(height: 10),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                IconTheme(
+                                  data: const IconThemeData(
+                                    color: Colors.black,
+                                    size: 16,
+                                  ),
+                                  child: StarDisplay(
+                                    value:
+                                        ((movie.voteAverage * 5) / 10).round(),
+                                  ),
+                                ),
+                                Text(
+                                    "  " + movie.voteAverage.toString() + "/10",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
                           ],
                         ),
                       ),
@@ -224,92 +274,152 @@ class DetailsScreen extends StatelessWidget {
                             indicatorSize: TabBarIndicatorSize.label,
                             indicatorColor: Colors.redAccent,
                             unselectedLabelColor: Colors.grey,
+                            isScrollable: true,
                             tabs: [
                               Tab(
-                                text: 'About Movie',
+                                text: 'Info',
                               ),
-                              Tab(text: 'Reviews'),
+                              Tab(
+                                text: 'Similar',
+                              )
                             ]),
                       ),
                       SizedBox(
-                        height: 400,
+                        height: 20,
+                      ),
+                      SizedBox(
+                        height: 450,
                         child: TabBarView(children: [
                           Container(
-                              margin: const EdgeInsets.only(top: 20),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'About ' + movie.title,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  ReadMoreText(
-                                    movie.overview,
-                                    trimLines: 4,
-                                    colorClickableText: Colors.black,
-                                    moreStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline),
-                                    lessStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline),
-                                    trimMode: TrimMode.Line,
-                                    trimCollapsedText: '\nRead More',
-                                    trimExpandedText: '\nShow less',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      children: [
-                                        ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 0),
-                                          leading: Icon(
-                                            Icons.calendar_month_outlined,
-                                            color: Colors.redAccent,
-                                          ),
-                                          title: Text(
-                                            'Release Date',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          subtitle: Text(
-                                              movie.releaseDate.split('-')[0]),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'About ' + movie.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              ReadMoreText(
+                                movie.overview,
+                                trimLines: 4,
+                                colorClickableText: Colors.black,
+                                moreStyle: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline),
+                                lessStyle: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline),
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: '\nRead More',
+                                trimExpandedText: '\nShow less',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      contentPadding:
+                                          EdgeInsets.symmetric(horizontal: 0),
+                                      leading: Icon(
+                                        Icons.calendar_month_outlined,
+                                        color: Colors.redAccent,
+                                      ),
+                                      title: Text(
+                                        'Release Date',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
                                         ),
-                                        ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 0),
-                                          leading: Icon(
-                                            Icons.emoji_emotions_outlined,
-                                            color: Colors.redAccent,
-                                          ),
-                                          title: Text(
-                                            'Genres',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          subtitle:
-                                          Text(Utils.getGenres(movie)),
-                                        )
-                                      ],
+                                      ),
+                                      subtitle: Text(movie.releaseDate),
                                     ),
-                                  )
-                                ],
-                              )),
-                          Container()
+                                    ListTile(
+                                      contentPadding:
+                                          EdgeInsets.symmetric(horizontal: 0),
+                                      leading: Icon(
+                                        Icons.emoji_emotions_outlined,
+                                        color: Colors.redAccent,
+                                      ),
+                                      title: Text(
+                                        'Genres',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      subtitle: Text(Utils.getGenres(movie)),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )),
+                          FutureBuilder<List<Movie>?>(
+                            future: ApiService.getSimilarMovie(movie.id),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return GridView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  // shrinkWrap: true,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 15.0,
+                                    mainAxisSpacing: 15.0,
+                                    childAspectRatio: 0.6,
+                                  ),
+                                  itemCount: 6,
+                                  itemBuilder: (context, index) =>
+                                      GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) =>
+                                                  DetailsScreen(
+                                                      movie: snapshot
+                                                          .data![index]))));
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: Image.network(
+                                        'https://image.tmdb.org/t/p/w500/${snapshot.data![index].posterPath}',
+                                        height: 300,
+                                        width: 180,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (_, __, ___) =>
+                                            const Icon(
+                                          Icons.broken_image,
+                                          size: 180,
+                                        ),
+                                        loadingBuilder: (_, __, ___) {
+                                          if (___ == null) return __;
+                                          return const FadeShimmer(
+                                            width: 180,
+                                            height: 250,
+                                            highlightColor: Color(0xff22272f),
+                                            baseColor: Color(0xff20252d),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
+                          )
                         ]),
                       ),
                     ],
@@ -366,7 +476,8 @@ class DetailsScreen extends StatelessWidget {
                       ),
                       minimumSize: Size(250, 50),
                       backgroundColor: Colors.redAccent,
-                      textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      textStyle:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 )
               ],
             ),
@@ -394,13 +505,13 @@ class CreateIcons extends StatelessWidget {
       ),
       child: ClipOval(
           child: Container(
-            padding: const EdgeInsets.all(7),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-            ),
-            child: InkWell(onTap: onTap, child: child),
-          )),
+        padding: const EdgeInsets.all(7),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
+        child: InkWell(onTap: onTap, child: child),
+      )),
     );
   }
 }

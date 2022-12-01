@@ -26,30 +26,21 @@ class CalendarState extends State<CalendarScreen> {
   DateTime _selectedDay = DateTime.now();
   var iniDate = DateTime.now();
 
-  String day = "";//DateTime.now().day.toString();
+  String day = ""; //DateTime.now().day.toString();
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString();
   String time = "";
 
-  var firstListTime = [
-    "8:30 AM ",
-    "10:30 AM"
-  ];
+  var firstListTime = ["8:30 AM ", "10:30 AM"];
 
   var firstSelected = [
     false,
     false,
   ];
 
-  var secondListTime = [
-    "3:30 PM ",
-    "8:30 PM "
-  ];
+  var secondListTime = ["3:30 PM ", "8:30 PM "];
 
-  var secondSelected = [
-    false,
-    false
-  ];
+  var secondSelected = [false, false];
 
   // @override
   // void initState() {
@@ -60,13 +51,13 @@ class CalendarState extends State<CalendarScreen> {
   Route route() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-      const SeatScreen(),
+          const SeatScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
         const curve = Curves.ease;
         final tween =
-        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
@@ -95,11 +86,7 @@ class CalendarState extends State<CalendarScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 280, top: 20),
             child: Text('Select date',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                )
-            ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ),
           TableCalendar(
             rowHeight: 50,
@@ -111,12 +98,13 @@ class CalendarState extends State<CalendarScreen> {
             },
             calendarFormat: _calendarFormat,
             onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
+              setState(
+                () {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
-                  day =_selectedDay!.day.toString();
-                  month = _selectedDay!.month.toString();
-                  year = _selectedDay!.year.toString();
+                  day = _selectedDay.day.toString();
+                  month = _selectedDay.month.toString();
+                  year = _selectedDay.year.toString();
                 },
               );
             },
@@ -130,11 +118,7 @@ class CalendarState extends State<CalendarScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 280),
             child: Text('Select time',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold
-              )
-            ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ),
           SizedBox(height: 10),
           Row(
@@ -145,7 +129,7 @@ class CalendarState extends State<CalendarScreen> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        for(int i = 0;i < firstSelected.length;i++) {
+                        for (int i = 0; i < firstSelected.length; i++) {
                           firstSelected[i] = false;
                           secondSelected[i] = false;
                         }
@@ -154,16 +138,16 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: firstSelected[0] ? Colors.greenAccent.shade700 : Colors.blue,
+                        backgroundColor: firstSelected[0]
+                            ? Colors.greenAccent.shade700
+                            : Colors.blue,
                         shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
-                    ),
+                        maximumSize: Size.fromWidth(140)),
                     child: Center(
-                      child: Text(firstListTime[0],
+                      child: Text(
+                        firstListTime[0],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
-                        ),
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                   ),
@@ -171,7 +155,7 @@ class CalendarState extends State<CalendarScreen> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        for(int i = 0;i < firstSelected.length;i++) {
+                        for (int i = 0; i < firstSelected.length; i++) {
                           firstSelected[i] = false;
                           secondSelected[i] = false;
                         }
@@ -180,16 +164,16 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: firstSelected[1] ? Colors.greenAccent.shade700 : Colors.blue,
+                        backgroundColor: firstSelected[1]
+                            ? Colors.greenAccent.shade700
+                            : Colors.blue,
                         shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
-                    ),
+                        maximumSize: Size.fromWidth(140)),
                     child: Center(
-                      child: Text(firstListTime[1],
+                      child: Text(
+                        firstListTime[1],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
-                        ),
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                   )
@@ -201,7 +185,7 @@ class CalendarState extends State<CalendarScreen> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        for(int i = 0;i < secondSelected.length;i++) {
+                        for (int i = 0; i < secondSelected.length; i++) {
                           secondSelected[i] = false;
                           firstSelected[i] = false;
                         }
@@ -210,16 +194,16 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: secondSelected[0] ? Colors.greenAccent.shade700 : Colors.blue,
+                        backgroundColor: secondSelected[0]
+                            ? Colors.greenAccent.shade700
+                            : Colors.blue,
                         shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
-                    ),
+                        maximumSize: Size.fromWidth(140)),
                     child: Center(
-                      child: Text(secondListTime[0],
+                      child: Text(
+                        secondListTime[0],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
-                        ),
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                   ),
@@ -227,7 +211,7 @@ class CalendarState extends State<CalendarScreen> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        for(int i = 0;i < secondSelected.length;i++) {
+                        for (int i = 0; i < secondSelected.length; i++) {
                           secondSelected[i] = false;
                           firstSelected[i] = false;
                         }
@@ -236,16 +220,16 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: secondSelected[1] ? Colors.greenAccent.shade700 : Colors.blue,
+                        backgroundColor: secondSelected[1]
+                            ? Colors.greenAccent.shade700
+                            : Colors.blue,
                         shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
-                    ),
+                        maximumSize: Size.fromWidth(140)),
                     child: Center(
-                      child: Text(secondListTime[1],
+                      child: Text(
+                        secondListTime[1],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
-                        ),
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                   )
@@ -258,44 +242,32 @@ class CalendarState extends State<CalendarScreen> {
             children: [
               SizedBox(width: 60),
               Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue
-                ),
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
                 width: 20,
                 height: 20,
               ),
               SizedBox(width: 10),
-              Text('Available',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17
-                ),
+              Text(
+                'Available',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
               SizedBox(width: 40),
               Container(
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.greenAccent.shade700
-                ),
+                    shape: BoxShape.circle, color: Colors.greenAccent.shade700),
                 width: 20,
                 height: 20,
               ),
               SizedBox(width: 10),
-              Text('Your selection',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17
-                ),
+              Text(
+                'Your selection',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               )
             ],
           ),
           SizedBox(height: 30),
-          Divider(
-              height: 20,
-              thickness: 1,
-              color: Colors.grey
-          ),
+          Divider(height: 20, thickness: 1, color: Colors.grey),
         ],
       ),
       bottomSheet: Container(
@@ -307,42 +279,41 @@ class CalendarState extends State<CalendarScreen> {
             // SizedBox(width: 80),
             Padding(
               padding: const EdgeInsets.only(left: 100, top: 15),
-              child: Text(day == "" ? '' : (time == "" ? '$day/$month/$year' : '$day/$month/$year - $time'),
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold
-                )
-              ),
+              child: Text(
+                  day == ""
+                      ? ''
+                      : (time == ""
+                          ? '$day/$month/$year'
+                          : '$day/$month/$year - $time'),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 340, top: 5),
               child: TextButton(
                 onPressed: () {
-                  if(time == "" || day == "") {
+                  if (time == "" || day == "") {
                     showDialog(
                         context: context,
                         builder: (_) => CupertinoAlertDialog(
-                          title: Text('You must select date and time!'),
-                          actions: [
-                            CupertinoDialogAction(
-                              child: Text('Ok'),
-                              onPressed: () => Navigator.pop(context),
-                            )
-                          ],
-                        )
-                    );
+                              title: Text('You must select date and time!'),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text('Ok'),
+                                  onPressed: () => Navigator.pop(context),
+                                )
+                              ],
+                            ));
                   } else {
                     Navigator.push(context, route());
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent
-                ),
+                    backgroundColor: Colors.transparent),
                 child: Image.asset('assets/right_blue_arrow.png',
-                  width: 27,
-                  height: 27
-                ),
+                    width: 27, height: 27),
               ),
             )
           ],
@@ -356,8 +327,5 @@ class Time {
   String time;
   bool isSelected;
 
-  Time({
-    required this.time,
-    required this.isSelected
-  });
+  Time({required this.time, required this.isSelected});
 }

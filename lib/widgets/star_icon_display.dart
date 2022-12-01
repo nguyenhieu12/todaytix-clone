@@ -11,7 +11,7 @@ class StarDisplay extends StatelessWidget {
       children: List.generate(5, (index) {
         return Icon(
           index < value ? CupertinoIcons.star_fill : CupertinoIcons.star,
-          color: Colors.amber,
+          color: Colors.black,
           size: 16,
         );
       }),
