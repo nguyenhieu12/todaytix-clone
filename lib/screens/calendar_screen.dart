@@ -148,15 +148,17 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: firstSelected[0] ? Colors.greenAccent.shade700 : Colors.blue,
+                        backgroundColor: firstSelected[0] ? Colors.redAccent : Colors.white,
                         shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
+                        maximumSize: Size.fromWidth(140),
+                        side: BorderSide(color: firstSelected[0] ? Colors.redAccent : Colors.grey),
                     ),
                     child: Center(
                       child: Text(firstListTime[0],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17,
+                            color: firstSelected[0] ? Colors.white : Colors.black
                         ),
                       ),
                     ),
@@ -174,15 +176,17 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: firstSelected[1] ? Colors.greenAccent.shade700 : Colors.blue,
-                        shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
+                      backgroundColor: firstSelected[1] ? Colors.redAccent : Colors.white,
+                      shape: const StadiumBorder(),
+                      maximumSize: Size.fromWidth(140),
+                      side: BorderSide(color: firstSelected[1] ? Colors.redAccent : Colors.grey),
                     ),
                     child: Center(
                       child: Text(firstListTime[1],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17,
+                            color: firstSelected[1] ? Colors.white : Colors.black
                         ),
                       ),
                     ),
@@ -204,15 +208,17 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: secondSelected[0] ? Colors.greenAccent.shade700 : Colors.blue,
-                        shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
+                      backgroundColor: secondSelected[0] ? Colors.redAccent : Colors.white,
+                      shape: const StadiumBorder(),
+                      maximumSize: Size.fromWidth(140),
+                      side: BorderSide(color: secondSelected[0] ? Colors.redAccent : Colors.grey),
                     ),
                     child: Center(
                       child: Text(secondListTime[0],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17,
+                            color: secondSelected[0] ? Colors.white : Colors.black
                         ),
                       ),
                     ),
@@ -230,15 +236,17 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: secondSelected[1] ? Colors.greenAccent.shade700 : Colors.blue,
-                        shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140)
+                      backgroundColor: secondSelected[1] ? Colors.redAccent : Colors.white,
+                      shape: const StadiumBorder(),
+                      maximumSize: Size.fromWidth(140),
+                      side: BorderSide(color: secondSelected[1] ? Colors.redAccent : Colors.grey),
                     ),
                     child: Center(
                       child: Text(secondListTime[1],
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17,
+                            color: secondSelected[1] ? Colors.white : Colors.black
                         ),
                       ),
                     ),
@@ -254,7 +262,10 @@ class CalendarState extends State<CalendarScreen> {
               Container(
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blue
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Colors.grey,
+                    )
                 ),
                 width: 20,
                 height: 20,
@@ -270,7 +281,7 @@ class CalendarState extends State<CalendarScreen> {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.greenAccent.shade700
+                  color: Colors.redAccent
                 ),
                 width: 20,
                 height: 20,
@@ -335,7 +346,8 @@ class CalendarState extends State<CalendarScreen> {
                 ),
                 child: Image.asset('assets/right_blue_arrow.png',
                   width: 27,
-                  height: 27
+                  height: 27,
+                  color: Colors.black,
                 ),
               ),
             )
