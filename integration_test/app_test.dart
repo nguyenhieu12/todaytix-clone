@@ -4,7 +4,6 @@ import 'package:flutter_project/screens/search_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_project/main.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -87,4 +86,5 @@ void main() async {
       await Future.delayed(Duration(seconds: 3));
     });
   });
+
 }

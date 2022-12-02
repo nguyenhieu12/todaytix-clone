@@ -32,7 +32,7 @@ class DetailsScreen extends StatelessWidget {
         const end = Offset.zero;
         const curve = Curves.ease;
         final tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
@@ -87,7 +87,7 @@ class DetailsScreen extends StatelessWidget {
                 SafeArea(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 20, top: 10, right: 20),
+                    const EdgeInsets.only(left: 20, top: 10, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -106,31 +106,31 @@ class DetailsScreen extends StatelessWidget {
                               ),
                               child: ClipOval(
                                   child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: IconButton(
-                                  onPressed: () {
-                                    Get.put(MoviesController())
-                                        .addToWatchList(movie);
-                                  },
-                                  icon: Obx(
-                                    () => Get.put(MoviesController())
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Get.put(MoviesController())
+                                            .addToWatchList(movie);
+                                      },
+                                      icon: Obx(
+                                            () => Get.put(MoviesController())
                                             .isInWatchList(movie)
-                                        ? const Icon(
-                                            Icons.bookmark,
-                                            color: Colors.red,
-                                          )
-                                        : const Icon(
-                                            Icons.bookmark_outline,
-                                            color: Colors.black,
-                                          ),
-                                  ),
-                                ),
-                              )),
+                                            ? const Icon(
+                                          Icons.bookmark,
+                                          color: Colors.red,
+                                        )
+                                            : const Icon(
+                                          Icons.bookmark_outline,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
                             ),
                             SizedBox(
                               width: 10,
@@ -239,7 +239,7 @@ class DetailsScreen extends StatelessWidget {
                                   ),
                                   child: StarDisplay(
                                     value:
-                                        ((movie.voteAverage * 5) / 10).round(),
+                                    ((movie.voteAverage * 5) / 10).round(),
                                   ),
                                 ),
                                 Text(
@@ -292,76 +292,76 @@ class DetailsScreen extends StatelessWidget {
                         child: TabBarView(children: [
                           Container(
                               child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'About ' + movie.title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              ReadMoreText(
-                                movie.overview,
-                                trimLines: 4,
-                                colorClickableText: Colors.black,
-                                moreStyle: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline),
-                                lessStyle: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline),
-                                trimMode: TrimMode.Line,
-                                trimCollapsedText: '\nRead More',
-                                trimExpandedText: '\nShow less',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 0),
-                                      leading: Icon(
-                                        Icons.calendar_month_outlined,
-                                        color: Colors.redAccent,
-                                      ),
-                                      title: Text(
-                                        'Release Date',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      subtitle: Text(movie.releaseDate),
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'About ' + movie.title,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    ListTile(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 0),
-                                      leading: Icon(
-                                        Icons.emoji_emotions_outlined,
-                                        color: Colors.redAccent,
-                                      ),
-                                      title: Text(
-                                        'Genres',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      subtitle: Text(Utils.getGenres(movie)),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  ReadMoreText(
+                                    movie.overview,
+                                    trimLines: 4,
+                                    colorClickableText: Colors.black,
+                                    moreStyle: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline),
+                                    lessStyle: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline),
+                                    trimMode: TrimMode.Line,
+                                    trimCollapsedText: '\nRead More',
+                                    trimExpandedText: '\nShow less',
+                                    style: TextStyle(
+                                      fontSize: 16,
                                     ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          )),
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          contentPadding:
+                                          EdgeInsets.symmetric(horizontal: 0),
+                                          leading: Icon(
+                                            Icons.calendar_month_outlined,
+                                            color: Colors.redAccent,
+                                          ),
+                                          title: Text(
+                                            'Release Date',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          subtitle: Text(movie.releaseDate),
+                                        ),
+                                        ListTile(
+                                          contentPadding:
+                                          EdgeInsets.symmetric(horizontal: 0),
+                                          leading: Icon(
+                                            Icons.emoji_emotions_outlined,
+                                            color: Colors.redAccent,
+                                          ),
+                                          title: Text(
+                                            'Genres',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          subtitle: Text(Utils.getGenres(movie)),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              )),
                           FutureBuilder<List<Movie>?>(
                             future: ApiService.getSimilarMovie(movie.id),
                             builder: (context, snapshot) {
@@ -370,7 +370,7 @@ class DetailsScreen extends StatelessWidget {
                                   physics: const NeverScrollableScrollPhysics(),
                                   // shrinkWrap: true,
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
                                     crossAxisSpacing: 15.0,
                                     mainAxisSpacing: 15.0,
@@ -379,39 +379,39 @@ class DetailsScreen extends StatelessWidget {
                                   itemCount: 6,
                                   itemBuilder: (context, index) =>
                                       GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: ((context) =>
-                                                  DetailsScreen(
-                                                      movie: snapshot
-                                                          .data![index]))));
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(16),
-                                      child: Image.network(
-                                        'https://image.tmdb.org/t/p/w500/${snapshot.data![index].posterPath}',
-                                        height: 300,
-                                        width: 180,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (_, __, ___) =>
-                                            const Icon(
-                                          Icons.broken_image,
-                                          size: 180,
-                                        ),
-                                        loadingBuilder: (_, __, ___) {
-                                          if (___ == null) return __;
-                                          return const FadeShimmer(
-                                            width: 180,
-                                            height: 250,
-                                            highlightColor: Color(0xff22272f),
-                                            baseColor: Color(0xff20252d),
-                                          );
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: ((context) =>
+                                                      DetailsScreen(
+                                                          movie: snapshot
+                                                              .data![index]))));
                                         },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(16),
+                                          child: Image.network(
+                                            'https://image.tmdb.org/t/p/w500/${snapshot.data![index].posterPath}',
+                                            height: 300,
+                                            width: 180,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (_, __, ___) =>
+                                            const Icon(
+                                              Icons.broken_image,
+                                              size: 180,
+                                            ),
+                                            loadingBuilder: (_, __, ___) {
+                                              if (___ == null) return __;
+                                              return const FadeShimmer(
+                                                width: 180,
+                                                height: 250,
+                                                highlightColor: Color(0xff22272f),
+                                                baseColor: Color(0xff20252d),
+                                              );
+                                            },
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
                                 );
                               } else {
                                 return const Center(
@@ -477,7 +477,7 @@ class DetailsScreen extends StatelessWidget {
                       minimumSize: Size(250, 50),
                       backgroundColor: Colors.redAccent,
                       textStyle:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 )
               ],
             ),
@@ -505,13 +505,13 @@ class CreateIcons extends StatelessWidget {
       ),
       child: ClipOval(
           child: Container(
-        padding: const EdgeInsets.all(7),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        child: InkWell(onTap: onTap, child: child),
-      )),
+            padding: const EdgeInsets.all(7),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+            child: InkWell(onTap: onTap, child: child),
+          )),
     );
   }
 }

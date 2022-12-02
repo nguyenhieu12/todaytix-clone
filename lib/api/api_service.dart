@@ -13,9 +13,9 @@ class ApiService {
       var res = jsonDecode(response.body);
       res['results'].skip(6).take(5).forEach(
             (m) => movies.add(
-              Movie.fromMap(m),
-            ),
-          );
+          Movie.fromMap(m),
+        ),
+      );
       return movies;
     } catch (e) {
       return null;
@@ -30,9 +30,9 @@ class ApiService {
       var res = jsonDecode(response.body);
       res['results'].take(10).forEach(
             (m) => movies.add(
-              Movie.fromMap(m),
-            ),
-          );
+          Movie.fromMap(m),
+        ),
+      );
       return movies;
     } catch (e) {
       return null;
@@ -65,9 +65,9 @@ class ApiService {
       var res = jsonDecode(response.body);
       res['results'].take(6).forEach(
             (m) => movies.add(
-              Movie.fromMap(m),
-            ),
-          );
+          Movie.fromMap(m),
+        ),
+      );
       return movies;
     } catch (e) {
       return null;
@@ -81,7 +81,7 @@ class ApiService {
           'https://api.themoviedb.org/3/search/movie?api_key=40797ff2c89935778fc86188943b775a&language=en-US&query=$query&include_adult=false'));
       var res = jsonDecode(response.body);
       res['results'].forEach(
-        (m) => movies.add(
+            (m) => movies.add(
           Movie.fromMap(m),
         ),
       );

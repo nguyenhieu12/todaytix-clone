@@ -185,20 +185,6 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
                       ),
                       ListTile(
                         leading: Image.asset(
-                          'assets/icons/setting.png',
-                          width: 30,
-                          height: 30,
-                        ),
-                        title: const Text(
-                          'Setting',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        onTap: () => {},
-                      ),
-                      ListTile(
-                        leading: Image.asset(
                           'assets/icons/question_mark.png',
                           width: 30,
                           height: 30,
