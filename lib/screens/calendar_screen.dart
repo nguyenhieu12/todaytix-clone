@@ -54,7 +54,7 @@ class CalendarState extends State<CalendarScreen> {
   @override
   Route route() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => SeatScreen(movie: movie),
+      pageBuilder: (context, animation, secondaryAnimation) => SeatScreen(movie: movie, day: day, month: month, year: year, time: time),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
@@ -106,12 +106,12 @@ class CalendarState extends State<CalendarScreen> {
             calendarFormat: _calendarFormat,
             onDaySelected: (selectedDay, focusedDay) {
               setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                  day =_selectedDay!.day.toString();
-                  month = _selectedDay!.month.toString();
-                  year = _selectedDay!.year.toString();
-                },
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+                day =_selectedDay.day.toString();
+                month = _selectedDay.month.toString();
+                year = _selectedDay.year.toString();
+              },
               );
             },
             onFormatChanged: (format) {
@@ -124,10 +124,10 @@ class CalendarState extends State<CalendarScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 280),
             child: Text('Select time',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold
-              )
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
+                )
             ),
           ),
           SizedBox(height: 10),
@@ -148,10 +148,10 @@ class CalendarState extends State<CalendarScreen> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: firstSelected[0] ? Colors.redAccent : Colors.white,
-                        shape: const StadiumBorder(),
-                        maximumSize: Size.fromWidth(140),
-                        side: BorderSide(color: firstSelected[0] ? Colors.redAccent : Colors.grey),
+                      backgroundColor: firstSelected[0] ? Colors.redAccent : Colors.white,
+                      shape: const StadiumBorder(),
+                      maximumSize: Size.fromWidth(140),
+                      side: BorderSide(color: firstSelected[0] ? Colors.redAccent : Colors.grey),
                     ),
                     child: Center(
                       child: Text(firstListTime[0],
@@ -273,15 +273,15 @@ class CalendarState extends State<CalendarScreen> {
               SizedBox(width: 10),
               Text('Available',
                 style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16
                 ),
               ),
               SizedBox(width: 50),
               Container(
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.redAccent
+                    shape: BoxShape.circle,
+                    color: Colors.redAccent
                 ),
                 width: 20,
                 height: 20,
@@ -312,12 +312,14 @@ class CalendarState extends State<CalendarScreen> {
             // SizedBox(width: 80),
             Padding(
               padding: const EdgeInsets.only(left: 100, top: 15),
-              child: Text(day == "" ? '' : (time == "" ? '$day/$month/$year' : '$day/$month/$year - $time'),
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold
-                )
+              child: Text(day == "" ? '' : (time == "" ?
+              (int.parse(day) < 10 ? '0$day/$month/$year' : '$day/$month/$year') :
+              (int.parse(day) < 10 ? '0$day/$month/$year - $time' : '$day/$month/$year - $time')),
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
+                  )
               ),
             ),
             Padding(
@@ -342,7 +344,7 @@ class CalendarState extends State<CalendarScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent
+                    backgroundColor: Colors.transparent
                 ),
                 child: Image.asset('assets/right_blue_arrow.png',
                   width: 27,
@@ -356,14 +358,4 @@ class CalendarState extends State<CalendarScreen> {
       ),
     );
   }
-}
-
-class Time {
-  String time;
-  bool isSelected;
-
-  Time({
-    required this.time,
-    required this.isSelected
-  });
 }

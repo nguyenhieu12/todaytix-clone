@@ -13,38 +13,51 @@ import '../model/utils.dart';
 import '../widgets/star_icon_display.dart';
 
 class TicketScreen extends StatefulWidget {
-  const TicketScreen({super.key, required this.movie});
+  const TicketScreen({
+    super.key,
+    required this.movie,
+    required this.day,
+    required this.month,
+    required this.year,
+    required this.time,
+    required this.listSeat
+  });
 
   final Movie movie;
+  final String day;
+  final String month;
+  final String year;
+  final String time;
+  final String listSeat;
 
   @override
-  State<TicketScreen> createState() => _TicketScreen(this.movie);
+  State<TicketScreen> createState() => _TicketScreen(
+      this.movie,
+      this.day,
+      this.month,
+      this.year,
+      this.time,
+      this.listSeat
+  );
 }
 
 class _TicketScreen extends State<TicketScreen> {
-  _TicketScreen(this.movie);
+  _TicketScreen(
+      this.movie,
+      this.day,
+      this.month,
+      this.year,
+      this.time,
+      this.listSeat
+   );
 
   final Movie movie;
+  final String day;
+  final String month;
+  final String year;
+  final String time;
+  final String listSeat;
 
-  var listState = [false, false, false, false, false, false, false, false, false, false, false, false];
-
-  int ticketnum = 1;
-  int seatSelectedNum = 0;
-  String listSeat = "";
-
-  void addTicket() {
-    setState(() {
-      ticketnum++;
-    });
-  }
-
-  final selectedSeat = ValueNotifier<List<String>>([]);
-
-  void removeTicket() {
-    setState(() {
-      ticketnum--;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,9 +156,9 @@ class _TicketScreen extends State<TicketScreen> {
                                           movie.releaseDate.split('-')[0] +
                                           ')',
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       maxLines: 3,
                                     ),
@@ -177,8 +190,8 @@ class _TicketScreen extends State<TicketScreen> {
                                       Utils.getGenres(
                                           movie),
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
+                                        color: Colors.black,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ],
@@ -193,10 +206,10 @@ class _TicketScreen extends State<TicketScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ticketDetailsWidget(
-                                  'Time', '8:30', 'Date', '4-12-2022'),
+                                  'Time', '$time', 'Date', int.parse(day) < 10 ? '0$day/$month/$year' : '$day/$month/$year'),
                               Padding(
-                                padding: const EdgeInsets.only(top: 10.0, right: 39.0),
-                                child: ticketDetailsWidget('Theater', 'CGV', 'Seat', 'D4'),
+                                padding: const EdgeInsets.only(top: 10.0, right: 18.0),
+                                child: ticketDetailsWidget('Theater', 'CGV', 'Seat', '$listSeat'),
                               ),
                             ],
                           ),
@@ -222,24 +235,24 @@ class _TicketScreen extends State<TicketScreen> {
         ],
       ),
       bottomNavigationBar: Container(
-        height: 50,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-          child: ElevatedButton(
-            onPressed: () {
-              Get.to(() => HomeScreen());
-            },
-            child: Text('Back to home'),
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                minimumSize: Size(250, 50),
-                backgroundColor: Colors.redAccent,
-                textStyle:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          ),
-        )
+          height: 50,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+            child: ElevatedButton(
+              onPressed: () {
+                Get.to(() => HomeScreen());
+              },
+              child: Text('Back to home'),
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  minimumSize: Size(250, 50),
+                  backgroundColor: Colors.redAccent,
+                  textStyle:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            ),
+          )
       ),
     );
   }
