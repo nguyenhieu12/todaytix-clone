@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/screens/ticket_screen.dart';
 import 'package:flutter_project/widgets/seat.dart';
+import 'package:get/get.dart';
 
 import '../model/movie.dart';
 
@@ -63,10 +65,10 @@ class _SeatScreen extends State<SeatScreen> {
             color: Color.fromRGBO(238, 238, 238, 1),
             child: Column(
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Text('Select seats',
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold
                     )
                 ),
@@ -78,7 +80,7 @@ class _SeatScreen extends State<SeatScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 24),
+                          const SizedBox(height: 10),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.5,
                             color: Colors.redAccent,
@@ -816,7 +818,7 @@ class _SeatScreen extends State<SeatScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-
+                            Get.to(() => TicketScreen(movie: movie));
                           },
                           child: Text('Continue'),
                           style: ElevatedButton.styleFrom(
