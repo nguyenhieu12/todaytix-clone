@@ -157,7 +157,7 @@ class DetailsScreen extends StatelessWidget {
             ),
             BottomInfoSheet(child: [
               Container(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 35),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
                 color: Colors.white,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,9 +250,6 @@ class DetailsScreen extends StatelessWidget {
                                     )),
                               ],
                             ),
-                            SizedBox(
-                              height: 8,
-                            ),
                           ],
                         ),
                       ),
@@ -261,7 +258,7 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: DefaultTabController(
                   length: 2,
                   child: Column(
@@ -446,7 +443,7 @@ class DetailsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'From \$39',
+                      'From \$10',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

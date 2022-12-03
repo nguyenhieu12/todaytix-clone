@@ -436,7 +436,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                                     .end,
                                                                 children: [
                                                                   Text(
-                                                                    'from 39',
+                                                                    'from \$10',
                                                                     style:
                                                                     TextStyle(
                                                                       fontSize: 14,

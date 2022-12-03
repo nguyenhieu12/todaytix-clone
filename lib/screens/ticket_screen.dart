@@ -193,10 +193,10 @@ class _TicketScreen extends State<TicketScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ticketDetailsWidget(
-                                  'Time', '8:30', 'Date', '28-08-2022'),
+                                  'Time', '8:30', 'Date', '4-12-2022'),
                               Padding(
-                                padding: const EdgeInsets.only(top: 10.0, right: 53.0),
-                                child: ticketDetailsWidget('Theater', 'CGV', 'Seat', '21B'),
+                                padding: const EdgeInsets.only(top: 10.0, right: 39.0),
+                                child: ticketDetailsWidget('Theater', 'CGV', 'Seat', 'D4'),
                               ),
                             ],
                           ),
